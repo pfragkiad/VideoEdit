@@ -67,12 +67,17 @@
             tabPage2 = new TabPage();
             groupBox1 = new GroupBox();
             groupBox3 = new GroupBox();
+            tabPage3 = new TabPage();
+            btnListOfFilesMergeCommands = new Button();
+            label5 = new Label();
+            txtListOfFilesToMerge = new TextBox();
             groupBox2.SuspendLayout();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             tabPage2.SuspendLayout();
             groupBox1.SuspendLayout();
             groupBox3.SuspendLayout();
+            tabPage3.SuspendLayout();
             SuspendLayout();
             // 
             // lstTimeSections
@@ -232,7 +237,7 @@
             // 
             // btnUpdateTimeSection
             // 
-            btnUpdateTimeSection.Location = new Point(370, 222);
+            btnUpdateTimeSection.Location = new Point(368, 222);
             btnUpdateTimeSection.Name = "btnUpdateTimeSection";
             btnUpdateTimeSection.Size = new Size(74, 23);
             btnUpdateTimeSection.TabIndex = 2;
@@ -272,7 +277,7 @@
             // 
             // btnAddTimeSection
             // 
-            btnAddTimeSection.Location = new Point(290, 222);
+            btnAddTimeSection.Location = new Point(289, 222);
             btnAddTimeSection.Name = "btnAddTimeSection";
             btnAddTimeSection.Size = new Size(74, 23);
             btnAddTimeSection.TabIndex = 2;
@@ -285,7 +290,7 @@
             txtSourceFile.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             txtSourceFile.Location = new Point(129, 29);
             txtSourceFile.Name = "txtSourceFile";
-            txtSourceFile.Size = new Size(719, 23);
+            txtSourceFile.Size = new Size(964, 23);
             txtSourceFile.TabIndex = 5;
             txtSourceFile.Text = "sample.txt";
             // 
@@ -305,7 +310,7 @@
             txtCommands.Multiline = true;
             txtCommands.Name = "txtCommands";
             txtCommands.ScrollBars = ScrollBars.Both;
-            txtCommands.Size = new Size(819, 142);
+            txtCommands.Size = new Size(1064, 182);
             txtCommands.TabIndex = 7;
             // 
             // label2
@@ -320,11 +325,11 @@
             // btnUpdateCommands
             // 
             btnUpdateCommands.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            btnUpdateCommands.Location = new Point(25, 576);
+            btnUpdateCommands.Location = new Point(850, 216);
             btnUpdateCommands.Name = "btnUpdateCommands";
-            btnUpdateCommands.Size = new Size(153, 34);
+            btnUpdateCommands.Size = new Size(173, 34);
             btnUpdateCommands.TabIndex = 8;
-            btnUpdateCommands.Text = "Update commands";
+            btnUpdateCommands.Text = "Update section commands";
             btnUpdateCommands.UseVisualStyleBackColor = true;
             btnUpdateCommands.Click += btnUpdateCommands_Click;
             // 
@@ -427,10 +432,11 @@
             tabControl1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             tabControl1.Controls.Add(tabPage1);
             tabControl1.Controls.Add(tabPage2);
+            tabControl1.Controls.Add(tabPage3);
             tabControl1.Location = new Point(25, 77);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new Size(823, 318);
+            tabControl1.Size = new Size(1068, 318);
             tabControl1.TabIndex = 11;
             // 
             // tabPage1
@@ -439,7 +445,7 @@
             tabPage1.Location = new Point(4, 24);
             tabPage1.Name = "tabPage1";
             tabPage1.Padding = new Padding(3);
-            tabPage1.Size = new Size(815, 290);
+            tabPage1.Size = new Size(1060, 290);
             tabPage1.TabIndex = 0;
             tabPage1.Text = "Preprocess";
             tabPage1.UseVisualStyleBackColor = true;
@@ -447,6 +453,7 @@
             // tabPage2
             // 
             tabPage2.Controls.Add(groupBox1);
+            tabPage2.Controls.Add(btnUpdateCommands);
             tabPage2.Controls.Add(btnMoveTimeSectionUp);
             tabPage2.Controls.Add(btnClearTimeSections);
             tabPage2.Controls.Add(btnAddTimeSection);
@@ -458,7 +465,7 @@
             tabPage2.Location = new Point(4, 24);
             tabPage2.Name = "tabPage2";
             tabPage2.Padding = new Padding(3);
-            tabPage2.Size = new Size(815, 290);
+            tabPage2.Size = new Size(1060, 290);
             tabPage2.TabIndex = 1;
             tabPage2.Text = "Time sections";
             tabPage2.UseVisualStyleBackColor = true;
@@ -494,19 +501,58 @@
             groupBox3.TabStop = false;
             groupBox3.Text = "Blur";
             // 
+            // tabPage3
+            // 
+            tabPage3.Controls.Add(btnListOfFilesMergeCommands);
+            tabPage3.Controls.Add(label5);
+            tabPage3.Controls.Add(txtListOfFilesToMerge);
+            tabPage3.Location = new Point(4, 24);
+            tabPage3.Name = "tabPage3";
+            tabPage3.Size = new Size(1060, 290);
+            tabPage3.TabIndex = 2;
+            tabPage3.Text = "Merge";
+            tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // btnListOfFilesMergeCommands
+            // 
+            btnListOfFilesMergeCommands.Location = new Point(21, 241);
+            btnListOfFilesMergeCommands.Name = "btnListOfFilesMergeCommands";
+            btnListOfFilesMergeCommands.Size = new Size(283, 32);
+            btnListOfFilesMergeCommands.TabIndex = 9;
+            btnListOfFilesMergeCommands.Text = "Update commands";
+            btnListOfFilesMergeCommands.UseVisualStyleBackColor = true;
+            btnListOfFilesMergeCommands.Click += btnListOfFilesMergeCommands_Click;
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Location = new Point(19, 24);
+            label5.Name = "label5";
+            label5.Size = new Size(66, 15);
+            label5.TabIndex = 8;
+            label5.Text = "List of files:";
+            // 
+            // txtListOfFilesToMerge
+            // 
+            txtListOfFilesToMerge.Location = new Point(21, 42);
+            txtListOfFilesToMerge.Multiline = true;
+            txtListOfFilesToMerge.Name = "txtListOfFilesToMerge";
+            txtListOfFilesToMerge.ScrollBars = ScrollBars.Both;
+            txtListOfFilesToMerge.Size = new Size(283, 183);
+            txtListOfFilesToMerge.TabIndex = 7;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(887, 622);
+            ClientSize = new Size(1132, 622);
             Controls.Add(tabControl1);
-            Controls.Add(btnUpdateCommands);
             Controls.Add(txtCommands);
             Controls.Add(label2);
             Controls.Add(label1);
             Controls.Add(txtSourceFile);
             Name = "Form1";
-            Text = "Form1";
+            Text = "ffmpeg command builder";
             groupBox2.ResumeLayout(false);
             groupBox2.PerformLayout();
             tabControl1.ResumeLayout(false);
@@ -516,6 +562,8 @@
             groupBox1.PerformLayout();
             groupBox3.ResumeLayout(false);
             groupBox3.PerformLayout();
+            tabPage3.ResumeLayout(false);
+            tabPage3.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -561,5 +609,9 @@
         private TabPage tabPage2;
         private GroupBox groupBox1;
         private GroupBox groupBox3;
+        private TabPage tabPage3;
+        private TextBox txtListOfFilesToMerge;
+        private Label label5;
+        private Button btnListOfFilesMergeCommands;
     }
 }

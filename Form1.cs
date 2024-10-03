@@ -28,15 +28,15 @@ public partial class Form1 : Form
         btnAddTimeSection.Enabled = false;
         btnDeleteTimeSection.Enabled = true;
 
-        chkBlurSection.Checked = _currentTimeSection.BlurSection is not null;   
-        if(_currentTimeSection.BlurSection is not null)
+        chkBlurSection.Checked = _currentTimeSection.BlurSection is not null;
+        if (_currentTimeSection.BlurSection is not null)
         {
-            var r  = _currentTimeSection.BlurSection.Value;
+            var r = _currentTimeSection.BlurSection.Value;
             txtBlurTopX.Text = r.X.ToString();
             txtBlurTopY.Text = r.Y.ToString();
             chkBlurUseBottomRightPoint.Checked = true;
-            txtBlurBottomXOrWidth.Text = (r.Right-1).ToString();
-            txtBlurBottomYOrHeight.Text = (r.Bottom-1).ToString();
+            txtBlurBottomXOrWidth.Text = (r.Right - 1).ToString();
+            txtBlurBottomYOrHeight.Text = (r.Bottom - 1).ToString();
         }
         else
         {
@@ -327,6 +327,29 @@ public partial class Form1 : Form
         txtCommands.AppendText(deleteCommand + "\r\n");
     }
 
+    public void UpdateMergeCommands()
+    {
+        string[] files = txtListOfFilesToMerge
+           .Lines
+           .Where(l => !string.IsNullOrWhiteSpace(l))
+           .Select(l => l.Trim())
+           .ToArray();
+
+        if (files.Length == 0) return;
+
+        txtCommands.Clear();
+
+        //write the echo command
+        string echoCommand = string.Join(" & ", files.Select((x, i) => $"echo file '{Path.GetFileNameWithoutExtension(x)}__part{i + 1}{Path.GetExtension(x)}'"));
+        echoCommand = $"({echoCommand}) >list.txt";
+
+        txtCommands.AppendText(echoCommand + "\r\n");
+
+        //merge command
+        string mergeCommand = $"ffmpeg -safe 0 -f concat -i list.txt -c copy \"output__merged{Path.GetExtension(files[0])}\"";
+        txtCommands.AppendText(mergeCommand + "\r\n");
+    }
+
 
     #region Handlers
 
@@ -398,6 +421,17 @@ public partial class Form1 : Form
     {
         lblBlurBottomRightPointOrSize.Text = chkBlurUseBottomRightPoint.Checked ? "Bottom Right Point: " : "Size (Width, Height):";
     }
+    private void btnClearTimeSections_Click(object sender, EventArgs e)
+    {
+        lstTimeSections.Items.Clear();
+        ResetTimeSection();
+    }
+
+    private void btnListOfFilesMergeCommands_Click(object sender, EventArgs e)
+    {
+
+        UpdateMergeCommands();
+    }
 
     #endregion
 
@@ -418,9 +452,4 @@ public partial class Form1 : Form
     #endregion
 
 
-    private void btnClearTimeSections_Click(object sender, EventArgs e)
-    {
-        lstTimeSections.Items.Clear();
-        ResetTimeSection();
-    }
 }
