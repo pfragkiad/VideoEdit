@@ -32,7 +32,6 @@
             btnClearTimeSections = new Button();
             txtFrom = new MaskedTextBox();
             txtTo = new MaskedTextBox();
-            groupBox1 = new GroupBox();
             chkBlurSection = new CheckBox();
             chkBlurUseBottomRightPoint = new CheckBox();
             chkTimeFrom = new CheckBox();
@@ -63,24 +62,33 @@
             txtBottomXOrWidth = new TextBox();
             txtTopY = new TextBox();
             txtTopX = new TextBox();
-            groupBox1.SuspendLayout();
+            tabControl1 = new TabControl();
+            tabPage1 = new TabPage();
+            tabPage2 = new TabPage();
+            groupBox1 = new GroupBox();
+            groupBox3 = new GroupBox();
             groupBox2.SuspendLayout();
+            tabControl1.SuspendLayout();
+            tabPage1.SuspendLayout();
+            tabPage2.SuspendLayout();
+            groupBox1.SuspendLayout();
+            groupBox3.SuspendLayout();
             SuspendLayout();
             // 
             // lstTimeSections
             // 
             lstTimeSections.FormattingEnabled = true;
             lstTimeSections.ItemHeight = 15;
-            lstTimeSections.Location = new Point(59, 41);
+            lstTimeSections.Location = new Point(49, 35);
             lstTimeSections.Name = "lstTimeSections";
-            lstTimeSections.Size = new Size(137, 139);
+            lstTimeSections.Size = new Size(137, 169);
             lstTimeSections.TabIndex = 0;
             lstTimeSections.Click += lstTimeSections_Click;
             lstTimeSections.SelectedIndexChanged += lstTimeSections_SelectedValueChanged;
             // 
             // btnClearTimeSections
             // 
-            btnClearTimeSections.Location = new Point(59, 186);
+            btnClearTimeSections.Location = new Point(49, 222);
             btnClearTimeSections.Name = "btnClearTimeSections";
             btnClearTimeSections.Size = new Size(75, 23);
             btnClearTimeSections.TabIndex = 2;
@@ -92,7 +100,7 @@
             // 
             txtFrom.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 161);
             txtFrom.InsertKeyMode = InsertKeyMode.Overwrite;
-            txtFrom.Location = new Point(275, 41);
+            txtFrom.Location = new Point(83, 47);
             txtFrom.Mask = "00:00:00.0";
             txtFrom.Name = "txtFrom";
             txtFrom.Size = new Size(95, 29);
@@ -104,7 +112,7 @@
             // 
             txtTo.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 161);
             txtTo.InsertKeyMode = InsertKeyMode.Overwrite;
-            txtTo.Location = new Point(275, 88);
+            txtTo.Location = new Point(83, 94);
             txtTo.Mask = "00:00:00.0";
             txtTo.Name = "txtTo";
             txtTo.Size = new Size(95, 29);
@@ -113,41 +121,10 @@
             txtTo.TextAlign = HorizontalAlignment.Center;
             txtTo.KeyPress += txtTo_KeyPress;
             // 
-            // groupBox1
-            // 
-            groupBox1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            groupBox1.Controls.Add(chkBlurSection);
-            groupBox1.Controls.Add(chkBlurUseBottomRightPoint);
-            groupBox1.Controls.Add(chkTimeFrom);
-            groupBox1.Controls.Add(lblBlurBottomRightPointOrSize);
-            groupBox1.Controls.Add(chkTimeTo);
-            groupBox1.Controls.Add(label4);
-            groupBox1.Controls.Add(txtBlurBottomYOrHeight);
-            groupBox1.Controls.Add(lstTimeSections);
-            groupBox1.Controls.Add(txtBlurBottomXOrWidth);
-            groupBox1.Controls.Add(txtTo);
-            groupBox1.Controls.Add(txtBlurTopY);
-            groupBox1.Controls.Add(txtFrom);
-            groupBox1.Controls.Add(txtBlurTopX);
-            groupBox1.Controls.Add(btnDeleteTimeSection);
-            groupBox1.Controls.Add(btnUpdateTimeSection);
-            groupBox1.Controls.Add(btnMoveTimeSectionDown);
-            groupBox1.Controls.Add(btnMoveTimeSectionUp);
-            groupBox1.Controls.Add(btnResetTimeSection);
-            groupBox1.Controls.Add(btnAddTimeSection);
-            groupBox1.Controls.Add(btnClearTimeSections);
-            groupBox1.Location = new Point(369, 82);
-            groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(739, 227);
-            groupBox1.TabIndex = 4;
-            groupBox1.TabStop = false;
-            groupBox1.Text = "Time trimming sections";
-            // 
             // chkBlurSection
             // 
-            chkBlurSection.BackColor = SystemColors.ControlLight;
-            chkBlurSection.Font = new Font("Segoe UI", 12F);
-            chkBlurSection.Location = new Point(451, 41);
+            chkBlurSection.ForeColor = Color.Blue;
+            chkBlurSection.Location = new Point(20, 27);
             chkBlurSection.Name = "chkBlurSection";
             chkBlurSection.Size = new Size(242, 29);
             chkBlurSection.TabIndex = 5;
@@ -159,7 +136,7 @@
             chkBlurUseBottomRightPoint.AutoSize = true;
             chkBlurUseBottomRightPoint.Checked = true;
             chkBlurUseBottomRightPoint.CheckState = CheckState.Checked;
-            chkBlurUseBottomRightPoint.Location = new Point(451, 132);
+            chkBlurUseBottomRightPoint.Location = new Point(281, 32);
             chkBlurUseBottomRightPoint.Name = "chkBlurUseBottomRightPoint";
             chkBlurUseBottomRightPoint.Size = new Size(147, 19);
             chkBlurUseBottomRightPoint.TabIndex = 2;
@@ -170,7 +147,7 @@
             // chkTimeFrom
             // 
             chkTimeFrom.AutoSize = true;
-            chkTimeFrom.Location = new Point(209, 48);
+            chkTimeFrom.Location = new Point(17, 54);
             chkTimeFrom.Name = "chkTimeFrom";
             chkTimeFrom.Size = new Size(60, 19);
             chkTimeFrom.TabIndex = 4;
@@ -180,7 +157,7 @@
             // lblBlurBottomRightPointOrSize
             // 
             lblBlurBottomRightPointOrSize.AutoSize = true;
-            lblBlurBottomRightPointOrSize.Location = new Point(451, 161);
+            lblBlurBottomRightPointOrSize.Location = new Point(281, 75);
             lblBlurBottomRightPointOrSize.Name = "lblBlurBottomRightPointOrSize";
             lblBlurBottomRightPointOrSize.Size = new Size(109, 15);
             lblBlurBottomRightPointOrSize.TabIndex = 1;
@@ -191,7 +168,7 @@
             chkTimeTo.AutoSize = true;
             chkTimeTo.Checked = true;
             chkTimeTo.CheckState = CheckState.Checked;
-            chkTimeTo.Location = new Point(210, 95);
+            chkTimeTo.Location = new Point(18, 101);
             chkTimeTo.Name = "chkTimeTo";
             chkTimeTo.Size = new Size(41, 19);
             chkTimeTo.TabIndex = 4;
@@ -201,7 +178,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(451, 95);
+            label4.Location = new Point(17, 76);
             label4.Name = "label4";
             label4.Size = new Size(80, 15);
             label4.TabIndex = 1;
@@ -209,7 +186,7 @@
             // 
             // txtBlurBottomYOrHeight
             // 
-            txtBlurBottomYOrHeight.Location = new Point(637, 158);
+            txtBlurBottomYOrHeight.Location = new Point(467, 72);
             txtBlurBottomYOrHeight.Name = "txtBlurBottomYOrHeight";
             txtBlurBottomYOrHeight.Size = new Size(56, 23);
             txtBlurBottomYOrHeight.TabIndex = 0;
@@ -218,7 +195,7 @@
             // 
             // txtBlurBottomXOrWidth
             // 
-            txtBlurBottomXOrWidth.Location = new Point(575, 158);
+            txtBlurBottomXOrWidth.Location = new Point(405, 72);
             txtBlurBottomXOrWidth.Name = "txtBlurBottomXOrWidth";
             txtBlurBottomXOrWidth.Size = new Size(56, 23);
             txtBlurBottomXOrWidth.TabIndex = 0;
@@ -227,7 +204,7 @@
             // 
             // txtBlurTopY
             // 
-            txtBlurTopY.Location = new Point(637, 91);
+            txtBlurTopY.Location = new Point(203, 72);
             txtBlurTopY.Name = "txtBlurTopY";
             txtBlurTopY.Size = new Size(56, 23);
             txtBlurTopY.TabIndex = 0;
@@ -236,7 +213,7 @@
             // 
             // txtBlurTopX
             // 
-            txtBlurTopX.Location = new Point(575, 91);
+            txtBlurTopX.Location = new Point(141, 72);
             txtBlurTopX.Name = "txtBlurTopX";
             txtBlurTopX.Size = new Size(56, 23);
             txtBlurTopX.TabIndex = 0;
@@ -245,7 +222,7 @@
             // 
             // btnDeleteTimeSection
             // 
-            btnDeleteTimeSection.Location = new Point(296, 157);
+            btnDeleteTimeSection.Location = new Point(447, 222);
             btnDeleteTimeSection.Name = "btnDeleteTimeSection";
             btnDeleteTimeSection.Size = new Size(74, 23);
             btnDeleteTimeSection.TabIndex = 2;
@@ -255,7 +232,7 @@
             // 
             // btnUpdateTimeSection
             // 
-            btnUpdateTimeSection.Location = new Point(210, 157);
+            btnUpdateTimeSection.Location = new Point(370, 222);
             btnUpdateTimeSection.Name = "btnUpdateTimeSection";
             btnUpdateTimeSection.Size = new Size(74, 23);
             btnUpdateTimeSection.TabIndex = 2;
@@ -265,7 +242,7 @@
             // 
             // btnMoveTimeSectionDown
             // 
-            btnMoveTimeSectionDown.Location = new Point(27, 70);
+            btnMoveTimeSectionDown.Location = new Point(17, 64);
             btnMoveTimeSectionDown.Name = "btnMoveTimeSectionDown";
             btnMoveTimeSectionDown.Size = new Size(26, 23);
             btnMoveTimeSectionDown.TabIndex = 2;
@@ -275,7 +252,7 @@
             // 
             // btnMoveTimeSectionUp
             // 
-            btnMoveTimeSectionUp.Location = new Point(27, 41);
+            btnMoveTimeSectionUp.Location = new Point(17, 35);
             btnMoveTimeSectionUp.Name = "btnMoveTimeSectionUp";
             btnMoveTimeSectionUp.Size = new Size(26, 23);
             btnMoveTimeSectionUp.TabIndex = 2;
@@ -285,7 +262,7 @@
             // 
             // btnResetTimeSection
             // 
-            btnResetTimeSection.Location = new Point(210, 128);
+            btnResetTimeSection.Location = new Point(210, 222);
             btnResetTimeSection.Name = "btnResetTimeSection";
             btnResetTimeSection.Size = new Size(74, 23);
             btnResetTimeSection.TabIndex = 2;
@@ -295,7 +272,7 @@
             // 
             // btnAddTimeSection
             // 
-            btnAddTimeSection.Location = new Point(296, 128);
+            btnAddTimeSection.Location = new Point(290, 222);
             btnAddTimeSection.Name = "btnAddTimeSection";
             btnAddTimeSection.Size = new Size(74, 23);
             btnAddTimeSection.TabIndex = 2;
@@ -308,7 +285,7 @@
             txtSourceFile.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             txtSourceFile.Location = new Point(129, 29);
             txtSourceFile.Name = "txtSourceFile";
-            txtSourceFile.Size = new Size(979, 23);
+            txtSourceFile.Size = new Size(719, 23);
             txtSourceFile.TabIndex = 5;
             txtSourceFile.Text = "sample.txt";
             // 
@@ -324,17 +301,17 @@
             // txtCommands
             // 
             txtCommands.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            txtCommands.Location = new Point(25, 363);
+            txtCommands.Location = new Point(29, 428);
             txtCommands.Multiline = true;
             txtCommands.Name = "txtCommands";
             txtCommands.ScrollBars = ScrollBars.Both;
-            txtCommands.Size = new Size(1083, 127);
+            txtCommands.Size = new Size(819, 142);
             txtCommands.TabIndex = 7;
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(25, 332);
+            label2.Location = new Point(29, 410);
             label2.Name = "label2";
             label2.Size = new Size(72, 15);
             label2.TabIndex = 6;
@@ -343,7 +320,7 @@
             // btnUpdateCommands
             // 
             btnUpdateCommands.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            btnUpdateCommands.Location = new Point(25, 505);
+            btnUpdateCommands.Location = new Point(25, 576);
             btnUpdateCommands.Name = "btnUpdateCommands";
             btnUpdateCommands.Size = new Size(153, 34);
             btnUpdateCommands.TabIndex = 8;
@@ -361,17 +338,16 @@
             groupBox2.Controls.Add(txtBottomXOrWidth);
             groupBox2.Controls.Add(txtTopY);
             groupBox2.Controls.Add(txtTopX);
-            groupBox2.Location = new Point(25, 82);
+            groupBox2.Location = new Point(26, 16);
             groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(296, 227);
+            groupBox2.Size = new Size(307, 246);
             groupBox2.TabIndex = 9;
             groupBox2.TabStop = false;
             groupBox2.Text = "Crop";
             // 
             // chkCropSection
             // 
-            chkCropSection.BackColor = SystemColors.ControlLight;
-            chkCropSection.Font = new Font("Segoe UI", 12F);
+            chkCropSection.ForeColor = Color.Blue;
             chkCropSection.Location = new Point(22, 41);
             chkCropSection.Name = "chkCropSection";
             chkCropSection.Size = new Size(242, 29);
@@ -384,7 +360,7 @@
             chkUseBottomRightPoint.AutoSize = true;
             chkUseBottomRightPoint.Checked = true;
             chkUseBottomRightPoint.CheckState = CheckState.Checked;
-            chkUseBottomRightPoint.Location = new Point(22, 142);
+            chkUseBottomRightPoint.Location = new Point(22, 140);
             chkUseBottomRightPoint.Name = "chkUseBottomRightPoint";
             chkUseBottomRightPoint.Size = new Size(147, 19);
             chkUseBottomRightPoint.TabIndex = 2;
@@ -395,7 +371,7 @@
             // lblBottomRightPointOrSize
             // 
             lblBottomRightPointOrSize.AutoSize = true;
-            lblBottomRightPointOrSize.Location = new Point(22, 185);
+            lblBottomRightPointOrSize.Location = new Point(22, 183);
             lblBottomRightPointOrSize.Name = "lblBottomRightPointOrSize";
             lblBottomRightPointOrSize.Size = new Size(109, 15);
             lblBottomRightPointOrSize.TabIndex = 1;
@@ -412,7 +388,7 @@
             // 
             // txtBottomYOrHeight
             // 
-            txtBottomYOrHeight.Location = new Point(208, 182);
+            txtBottomYOrHeight.Location = new Point(208, 180);
             txtBottomYOrHeight.Name = "txtBottomYOrHeight";
             txtBottomYOrHeight.Size = new Size(56, 23);
             txtBottomYOrHeight.TabIndex = 0;
@@ -421,7 +397,7 @@
             // 
             // txtBottomXOrWidth
             // 
-            txtBottomXOrWidth.Location = new Point(146, 182);
+            txtBottomXOrWidth.Location = new Point(146, 180);
             txtBottomXOrWidth.Name = "txtBottomXOrWidth";
             txtBottomXOrWidth.Size = new Size(56, 23);
             txtBottomXOrWidth.TabIndex = 0;
@@ -446,24 +422,100 @@
             txtTopX.Text = "0";
             txtTopX.TextAlign = HorizontalAlignment.Right;
             // 
+            // tabControl1
+            // 
+            tabControl1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            tabControl1.Controls.Add(tabPage1);
+            tabControl1.Controls.Add(tabPage2);
+            tabControl1.Location = new Point(25, 77);
+            tabControl1.Name = "tabControl1";
+            tabControl1.SelectedIndex = 0;
+            tabControl1.Size = new Size(823, 318);
+            tabControl1.TabIndex = 11;
+            // 
+            // tabPage1
+            // 
+            tabPage1.Controls.Add(groupBox2);
+            tabPage1.Location = new Point(4, 24);
+            tabPage1.Name = "tabPage1";
+            tabPage1.Padding = new Padding(3);
+            tabPage1.Size = new Size(815, 290);
+            tabPage1.TabIndex = 0;
+            tabPage1.Text = "Preprocess";
+            tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // tabPage2
+            // 
+            tabPage2.Controls.Add(groupBox1);
+            tabPage2.Controls.Add(btnMoveTimeSectionUp);
+            tabPage2.Controls.Add(btnClearTimeSections);
+            tabPage2.Controls.Add(btnAddTimeSection);
+            tabPage2.Controls.Add(btnResetTimeSection);
+            tabPage2.Controls.Add(btnMoveTimeSectionDown);
+            tabPage2.Controls.Add(btnUpdateTimeSection);
+            tabPage2.Controls.Add(btnDeleteTimeSection);
+            tabPage2.Controls.Add(lstTimeSections);
+            tabPage2.Location = new Point(4, 24);
+            tabPage2.Name = "tabPage2";
+            tabPage2.Padding = new Padding(3);
+            tabPage2.Size = new Size(815, 290);
+            tabPage2.TabIndex = 1;
+            tabPage2.Text = "Time sections";
+            tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // groupBox1
+            // 
+            groupBox1.Controls.Add(groupBox3);
+            groupBox1.Controls.Add(chkTimeFrom);
+            groupBox1.Controls.Add(txtTo);
+            groupBox1.Controls.Add(txtFrom);
+            groupBox1.Controls.Add(chkTimeTo);
+            groupBox1.Location = new Point(210, 35);
+            groupBox1.Name = "groupBox1";
+            groupBox1.Size = new Size(813, 169);
+            groupBox1.TabIndex = 6;
+            groupBox1.TabStop = false;
+            groupBox1.Text = "Selected Time Section";
+            // 
+            // groupBox3
+            // 
+            groupBox3.Controls.Add(chkBlurSection);
+            groupBox3.Controls.Add(label4);
+            groupBox3.Controls.Add(lblBlurBottomRightPointOrSize);
+            groupBox3.Controls.Add(txtBlurTopY);
+            groupBox3.Controls.Add(txtBlurBottomYOrHeight);
+            groupBox3.Controls.Add(txtBlurTopX);
+            groupBox3.Controls.Add(chkBlurUseBottomRightPoint);
+            groupBox3.Controls.Add(txtBlurBottomXOrWidth);
+            groupBox3.Location = new Point(217, 22);
+            groupBox3.Name = "groupBox3";
+            groupBox3.Size = new Size(576, 128);
+            groupBox3.TabIndex = 6;
+            groupBox3.TabStop = false;
+            groupBox3.Text = "Blur";
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1147, 551);
-            Controls.Add(groupBox2);
+            ClientSize = new Size(887, 622);
+            Controls.Add(tabControl1);
             Controls.Add(btnUpdateCommands);
             Controls.Add(txtCommands);
             Controls.Add(label2);
             Controls.Add(label1);
             Controls.Add(txtSourceFile);
-            Controls.Add(groupBox1);
             Name = "Form1";
             Text = "Form1";
-            groupBox1.ResumeLayout(false);
-            groupBox1.PerformLayout();
             groupBox2.ResumeLayout(false);
             groupBox2.PerformLayout();
+            tabControl1.ResumeLayout(false);
+            tabPage1.ResumeLayout(false);
+            tabPage2.ResumeLayout(false);
+            groupBox1.ResumeLayout(false);
+            groupBox1.PerformLayout();
+            groupBox3.ResumeLayout(false);
+            groupBox3.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -474,7 +526,6 @@
         private Button btnClearTimeSections;
         private MaskedTextBox txtFrom;
         private MaskedTextBox txtTo;
-        private GroupBox groupBox1;
         private Button btnDeleteTimeSection;
         private Button btnAddTimeSection;
         private CheckBox chkTimeFrom;
@@ -505,5 +556,10 @@
         private TextBox txtBlurBottomXOrWidth;
         private TextBox txtBlurTopY;
         private TextBox txtBlurTopX;
+        private TabControl tabControl1;
+        private TabPage tabPage1;
+        private TabPage tabPage2;
+        private GroupBox groupBox1;
+        private GroupBox groupBox3;
     }
 }

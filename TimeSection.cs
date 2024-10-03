@@ -38,7 +38,7 @@ public class TimeSection
         string sFrom = From?.ToString(TimeFormat) ?? "";
         string sTo = To?.ToString(TimeFormat) ?? "";
 
-        if (From is null && To is null) return "<Empty>";
+        if (From is null && To is null) return "<Whole>";
         if (From is null) return $"<Start> - {sTo}";
         if (To is null) return $"{sFrom} - <End>";
         return $"{sFrom} - {sTo}";
