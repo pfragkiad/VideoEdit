@@ -310,18 +310,20 @@ public partial class Form1 : Form
             txtCommands.AppendText($"{section.ToFfmpegCommand(inputFile, i + 1)}\r\n");
         }
 
+        string extension = Path.GetExtension(inputFile);
+
         //write the echo command
-        string echoCommand = string.Join(" & ", timeSections.Select((x, i) => $"echo file '{Path.GetFileNameWithoutExtension(inputFile)}__part{i + 1}.mp4'"));
+        string echoCommand = string.Join(" & ", timeSections.Select((x, i) => $"echo file '{Path.GetFileNameWithoutExtension(inputFile)}__part{i + 1}{extension}'"));
         echoCommand = $"({echoCommand}) >list.txt";
 
         txtCommands.AppendText(echoCommand + "\r\n");
 
         //merge command
-        string mergeCommand = $"ffmpeg -safe 0 -f concat -i list.txt -c copy \"{Path.GetFileNameWithoutExtension(inputFile)}__merged.mp4\"";
+        string mergeCommand = $"ffmpeg -safe 0 -f concat -i list.txt -c copy \"{Path.GetFileNameWithoutExtension(inputFile)}__merged{extension}\"";
         txtCommands.AppendText(mergeCommand + "\r\n");
 
         //delete command 
-        string deleteCommand = string.Join(" & ", timeSections.Select((x, i) => $"del \"{Path.GetFileNameWithoutExtension(inputFile)}__part{i + 1}.mp4\"")) + " & del list.txt";
+        string deleteCommand = string.Join(" & ", timeSections.Select((x, i) => $"del \"{Path.GetFileNameWithoutExtension(inputFile)}__part{i + 1}{extension}\"")) + " & del list.txt";
         txtCommands.AppendText(deleteCommand + "\r\n");
     }
 
