@@ -28,6 +28,23 @@ public partial class Form1 : Form
         btnAddTimeSection.Enabled = false;
         btnDeleteTimeSection.Enabled = true;
 
+        chkBlurSection.Checked = _currentTimeSection.BlurSection is not null;   
+        if(_currentTimeSection.BlurSection is not null)
+        {
+            var r  = _currentTimeSection.BlurSection.Value;
+            txtBlurTopX.Text = r.X.ToString();
+            txtBlurTopY.Text = r.Y.ToString();
+            chkBlurUseBottomRightPoint.Checked = true;
+            txtBlurBottomXOrWidth.Text = (r.Right-1).ToString();
+            txtBlurBottomYOrHeight.Text = (r.Bottom-1).ToString();
+        }
+        else
+        {
+            txtBlurTopX.Clear(); txtBlurTopY.Clear();
+            txtBlurBottomXOrWidth.Clear(); txtBlurBottomYOrHeight.Clear();
+            chkBlurUseBottomRightPoint.Checked = true;
+        }
+
         btnMoveTimeSectionDown.Enabled = lstTimeSections.SelectedIndex < lstTimeSections.Items.Count - 1;
         btnMoveTimeSectionUp.Enabled = lstTimeSections.SelectedIndex > 0;
     }
@@ -300,7 +317,7 @@ public partial class Form1 : Form
         txtCommands.AppendText(echoCommand + "\r\n");
 
         //merge command
-        string mergeCommand = $"ffmpeg -safe 0 -f concat -i list.txt -c copy \"{Path.GetFileNameWithoutExtension(inputFile)}__merged\".mp4";
+        string mergeCommand = $"ffmpeg -safe 0 -f concat -i list.txt -c copy \"{Path.GetFileNameWithoutExtension(inputFile)}__merged.mp4\"";
         txtCommands.AppendText(mergeCommand + "\r\n");
 
         //delete command 
