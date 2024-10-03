@@ -42,7 +42,7 @@ public partial class Form1 : Form
         bool fromParsed = TimeSpan.TryParseExact(sFrom, TimeSection.TimeFormats, CultureInfo.InvariantCulture, out var from);
         bool toParsed = TimeSpan.TryParseExact(sTo, TimeSection.TimeFormats, CultureInfo.InvariantCulture, out var to);
 
-        TimeSection? newTimeSection = GetTimeSectionFromControls();
+        TimeSection? newTimeSection = GetCurrentTimeSection();
         if (newTimeSection is null) return;
 
 
@@ -60,7 +60,7 @@ public partial class Form1 : Form
         txtFrom.Focus();
     }
 
-    private TimeSection? GetTimeSectionFromControls()
+    private TimeSection? GetCurrentTimeSection()
     {
         string sFrom = txtFrom.Text.Trim();
         string sTo = txtTo.Text.Trim();
@@ -81,10 +81,13 @@ public partial class Form1 : Form
             return null;
         }
 
+        Rectangle? blurSection = GetBlurSection();
+
         return new TimeSection
         {
             From = fromParsed && chkTimeFrom.Checked ? from : null,
             To = toParsed && chkTimeTo.Checked ? to : null,
+            BlurSection = blurSection
         };
     }
 
@@ -93,7 +96,7 @@ public partial class Form1 : Form
     {
         if (_currentTimeSection is null) return;
 
-        _currentTimeSection = GetTimeSectionFromControls();
+        _currentTimeSection = GetCurrentTimeSection();
         if (_currentTimeSection is null) return;
 
         lstTimeSections.Items[lstTimeSections.SelectedIndex] = _currentTimeSection;
@@ -113,6 +116,11 @@ public partial class Form1 : Form
 
         btnMoveTimeSectionDown.Enabled = false;
         btnMoveTimeSectionUp.Enabled = false;
+
+        chkBlurSection.Checked = false;
+        chkBlurUseBottomRightPoint.Checked = true;
+        txtBlurTopX.Clear(); txtBlurTopY.Clear();
+        txtBlurBottomXOrWidth.Clear(); txtBlurBottomYOrHeight.Clear();
 
         _currentTimeSection = null;
     }
@@ -155,11 +163,107 @@ public partial class Form1 : Form
         lstTimeSections.Items.RemoveAt(currentLocation);
         lstTimeSections.Items.Insert(currentLocation + 1, _currentTimeSection);
     }
+    private Rectangle? GetCropSection()
+    {
+        if (!chkCropSection.Checked) return null;
+
+
+        bool parsed;
+        parsed = int.TryParse(txtTopX.Text, CultureInfo.InvariantCulture, out int topX);
+        if (!parsed)
+        {
+            ShowError("Invalid Top X value");
+            return null;
+        }
+
+        parsed = int.TryParse(txtTopY.Text, CultureInfo.InvariantCulture, out int topY);
+        if (!parsed)
+        {
+            ShowError("Invalid Top Y value");
+            return null;
+        }
+
+        parsed = int.TryParse(txtBottomXOrWidth.Text, CultureInfo.InvariantCulture, out int wOrX);
+        if (!parsed)
+        {
+            ShowError("Invalid Bottom X or Width value");
+            return null;
+        }
+
+        parsed = int.TryParse(txtBottomYOrHeight.Text, CultureInfo.InvariantCulture, out int hOrY);
+        if (!parsed)
+        {
+            ShowError("Invalid Bottom Y or Height value");
+            return null;
+        }
+
+        return new Rectangle
+        {
+            X = topX,
+            Y = topY,
+            Width = chkUseBottomRightPoint.Checked ? wOrX - topX + 1 : wOrX,
+            Height = chkUseBottomRightPoint.Checked ? hOrY - topY + 1 : hOrY
+        };
+    }
+
+    private Rectangle? GetBlurSection()
+    {
+
+        if (!chkBlurSection.Checked) return null;
+
+
+        bool parsed;
+        parsed = int.TryParse(txtBlurTopX.Text, CultureInfo.InvariantCulture, out int topX);
+        if (!parsed)
+        {
+            ShowError("Invalid Top X value");
+            return null;
+        }
+
+        parsed = int.TryParse(txtBlurTopY.Text, CultureInfo.InvariantCulture, out int topY);
+        if (!parsed)
+        {
+            ShowError("Invalid Top Y value");
+            return null;
+        }
+
+        parsed = int.TryParse(txtBlurBottomXOrWidth.Text, CultureInfo.InvariantCulture, out int wOrX);
+        if (!parsed)
+        {
+            ShowError("Invalid Bottom X or Width value");
+            return null;
+        }
+
+        parsed = int.TryParse(txtBlurBottomYOrHeight.Text, CultureInfo.InvariantCulture, out int hOrY);
+        if (!parsed)
+        {
+            ShowError("Invalid Bottom Y or Height value");
+            return null;
+        }
+
+        return new Rectangle
+        {
+            X = topX,
+            Y = topY,
+            Width = chkBlurUseBottomRightPoint.Checked ? wOrX - topX + 1 : wOrX,
+            Height = chkBlurUseBottomRightPoint.Checked ? hOrY - topY + 1 : hOrY
+        };
+
+
+
+    }
+
 
     public void UpdateCommands()
     {
+        txtCommands.Clear();
 
         var timeSections = lstTimeSections.Items.Cast<TimeSection>().ToList();
+        if (timeSections.Count == 0) return;
+
+
+
+
         string inputFile = txtSourceFile.Text.Trim();
         bool isFileEmpty = string.IsNullOrWhiteSpace(inputFile);
         if (isFileEmpty)
@@ -167,13 +271,20 @@ public partial class Form1 : Form
             inputFile = "<input>.mp4";
         }
 
-        if (timeSections.Count == 0) return;
 
         //ffmpeg -i v1.mp4 -ss 00:06:27 -to 00:46:35 -c:v copy -c:a copy v1_part1.mp4
         //ffmpeg -i v1.mp4 -ss 01:01:33 -c:v copy -c:a copy v1_part2.mp4
         //(echo file 'v1_part1.mp4' & echo file 'v1_part2.mp4') >list.txt
         //ffmpeg -safe 0 -f concat -i list.txt -c copy v1_m.mp4
         //del v1_part1.mp4 & del v1_part2.mp4
+
+        if (timeSections.Count == 1)
+        {
+            //cropped section only works with one section
+            Rectangle? cropSection = GetCropSection();
+            txtCommands.AppendText($"{timeSections[0].ToFfmpegCommand(inputFile, null, cropSection)}\r\n");
+            return;
+        }
 
 
         for (int i = 0; i < timeSections.Count; i++)
@@ -183,15 +294,17 @@ public partial class Form1 : Form
         }
 
         //write the echo command
-        string echoCommand = string.Join(" & ", timeSections.Select((x, i) => $"echo file '{Path.GetFileNameWithoutExtension(inputFile)}_part{i + 1}.mp4' >list.txt"));
+        string echoCommand = string.Join(" & ", timeSections.Select((x, i) => $"echo file '{Path.GetFileNameWithoutExtension(inputFile)}__part{i + 1}.mp4'"));
+        echoCommand = $"({echoCommand}) >list.txt";
+
         txtCommands.AppendText(echoCommand + "\r\n");
 
         //merge command
-        string mergeCommand = $"ffmpeg -safe 0 -f concat -i list.txt -c copy {Path.GetFileNameWithoutExtension(inputFile)}_merged.mp4";
+        string mergeCommand = $"ffmpeg -safe 0 -f concat -i list.txt -c copy \"{Path.GetFileNameWithoutExtension(inputFile)}__merged\".mp4";
         txtCommands.AppendText(mergeCommand + "\r\n");
 
         //delete command 
-        string deleteCommand = string.Join(" & ", timeSections.Select((x, i) => $"del \"{Path.GetFileNameWithoutExtension(inputFile)}_part{i + 1}.mp4\"")) + " & del list.txt";
+        string deleteCommand = string.Join(" & ", timeSections.Select((x, i) => $"del \"{Path.GetFileNameWithoutExtension(inputFile)}__part{i + 1}.mp4\"")) + " & del list.txt";
         txtCommands.AppendText(deleteCommand + "\r\n");
     }
 
@@ -258,7 +371,14 @@ public partial class Form1 : Form
     {
         UpdateCommands();
     }
-
+    private void chkUseBottomRightPoint_CheckedChanged(object sender, EventArgs e)
+    {
+        lblBottomRightPointOrSize.Text = chkUseBottomRightPoint.Checked ? "Bottom Right Point: " : "Size (Width, Height):";
+    }
+    private void chkBlurUseBottomRightPoint_CheckedChanged(object sender, EventArgs e)
+    {
+        lblBlurBottomRightPointOrSize.Text = chkBlurUseBottomRightPoint.Checked ? "Bottom Right Point: " : "Size (Width, Height):";
+    }
 
     #endregion
 
@@ -279,6 +399,9 @@ public partial class Form1 : Form
     #endregion
 
 
-
-
+    private void btnClearTimeSections_Click(object sender, EventArgs e)
+    {
+        lstTimeSections.Items.Clear();
+        ResetTimeSection();
+    }
 }

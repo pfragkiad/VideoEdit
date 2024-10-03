@@ -10,8 +10,8 @@ public class TimeSection
 {
     public const string TimeFormat = "hh\\:mm\\:ss\\.f";
 
-    public static string[] TimeFormats = new string[]
-    {
+    public static string[] TimeFormats =
+    [
         "hh\\:mm\\:ss\\.f",
         "hh\\:mm\\:ss\\.",
         "hh\\:mm\\:ss",
@@ -24,10 +24,12 @@ public class TimeSection
         "mm\\:ss",
         "ss\\.f",
         "ss",
-    };
+    ];
 
     public TimeSpan? From { get; set; }
     public TimeSpan? To { get; set; }
+
+    public Rectangle? BlurSection { get; set; }
 
     //public static TimeSection Empty => new();
 
@@ -42,19 +44,40 @@ public class TimeSection
         return $"{sFrom} - {sTo}";
     }
 
-    public string ToFfmpegCommand(string inputFileName, int outputIndex)
+    public string ToFfmpegCommand(string inputFileName, int? outputIndex,
+        Rectangle? cropSection = null)
     {
-        string filenameWithoutExtension = Path.GetFileNameWithoutExtension(inputFileName);
-        string outputFileName = $"{filenameWithoutExtension}_part{outputIndex}.mp4";
 
-        StringBuilder stringBuilder = new("ffmpeg -i ");
-        stringBuilder.Append(inputFileName);
+        string filenameWithoutExtension = Path.GetFileNameWithoutExtension(inputFileName);
+        string extension = Path.GetExtension(inputFileName);
+
+        bool isPart = outputIndex is not null;  
+        string partSuffix = isPart ? $"_part{outputIndex}" : 
+                (cropSection.HasValue ? "_cropped" : "_merged");
+        string outputFileName = $"{filenameWithoutExtension}_{partSuffix}{extension}";
+
+        StringBuilder stringBuilder = new($"ffmpeg -i \"{inputFileName}\" ");
+        
         if (From is not null)
             stringBuilder.Append($" -ss {From.Value.ToString(TimeFormat)}");
         if (To is not null)
             stringBuilder.Append($" -to {To.Value.ToString(TimeFormat)}");
 
-        stringBuilder.Append($" -c:v copy -c:a copy {outputFileName}");
+        //1030:712:113:27
+        //"crop=out_w:out_h:x:y"
+        string sVideo = "-c:v copy";
+        if (cropSection.HasValue)
+        {
+            Rectangle r = cropSection.Value;
+            sVideo = $" -vf \"crop={r.Width}:{r.Height}:{r.X}:{r.Y}\"";
+        }
+        else if (BlurSection.HasValue )
+        {
+            Rectangle r = BlurSection.Value;
+            sVideo = $" -filter_complex \"[0:v]crop={r.Width}:{r.Height}:{r.X}:{r.Y},boxblur=10[mask];[0:v][mask]overlay={r.X}:{r.Y}[v]\" -map \"[v]\" -map 0:a";
+        }
+
+        stringBuilder.Append($" {sVideo} -c:a copy \"{outputFileName}\"");
         return stringBuilder.ToString();
     }
 

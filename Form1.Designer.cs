@@ -33,8 +33,16 @@
             txtFrom = new MaskedTextBox();
             txtTo = new MaskedTextBox();
             groupBox1 = new GroupBox();
+            chkBlurSection = new CheckBox();
+            chkBlurUseBottomRightPoint = new CheckBox();
             chkTimeFrom = new CheckBox();
+            lblBlurBottomRightPointOrSize = new Label();
             chkTimeTo = new CheckBox();
+            label4 = new Label();
+            txtBlurBottomYOrHeight = new TextBox();
+            txtBlurBottomXOrWidth = new TextBox();
+            txtBlurTopY = new TextBox();
+            txtBlurTopX = new TextBox();
             btnDeleteTimeSection = new Button();
             btnUpdateTimeSection = new Button();
             btnMoveTimeSectionDown = new Button();
@@ -46,7 +54,17 @@
             txtCommands = new TextBox();
             label2 = new Label();
             btnUpdateCommands = new Button();
+            groupBox2 = new GroupBox();
+            chkCropSection = new CheckBox();
+            chkUseBottomRightPoint = new CheckBox();
+            lblBottomRightPointOrSize = new Label();
+            label3 = new Label();
+            txtBottomYOrHeight = new TextBox();
+            txtBottomXOrWidth = new TextBox();
+            txtTopY = new TextBox();
+            txtTopX = new TextBox();
             groupBox1.SuspendLayout();
+            groupBox2.SuspendLayout();
             SuspendLayout();
             // 
             // lstTimeSections
@@ -68,6 +86,7 @@
             btnClearTimeSections.TabIndex = 2;
             btnClearTimeSections.Text = "Clear";
             btnClearTimeSections.UseVisualStyleBackColor = true;
+            btnClearTimeSections.Click += btnClearTimeSections_Click;
             // 
             // txtFrom
             // 
@@ -96,11 +115,20 @@
             // 
             // groupBox1
             // 
+            groupBox1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            groupBox1.Controls.Add(chkBlurSection);
+            groupBox1.Controls.Add(chkBlurUseBottomRightPoint);
             groupBox1.Controls.Add(chkTimeFrom);
+            groupBox1.Controls.Add(lblBlurBottomRightPointOrSize);
             groupBox1.Controls.Add(chkTimeTo);
+            groupBox1.Controls.Add(label4);
+            groupBox1.Controls.Add(txtBlurBottomYOrHeight);
             groupBox1.Controls.Add(lstTimeSections);
+            groupBox1.Controls.Add(txtBlurBottomXOrWidth);
             groupBox1.Controls.Add(txtTo);
+            groupBox1.Controls.Add(txtBlurTopY);
             groupBox1.Controls.Add(txtFrom);
+            groupBox1.Controls.Add(txtBlurTopX);
             groupBox1.Controls.Add(btnDeleteTimeSection);
             groupBox1.Controls.Add(btnUpdateTimeSection);
             groupBox1.Controls.Add(btnMoveTimeSectionDown);
@@ -108,12 +136,36 @@
             groupBox1.Controls.Add(btnResetTimeSection);
             groupBox1.Controls.Add(btnAddTimeSection);
             groupBox1.Controls.Add(btnClearTimeSections);
-            groupBox1.Location = new Point(25, 77);
+            groupBox1.Location = new Point(369, 82);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(396, 227);
+            groupBox1.Size = new Size(739, 227);
             groupBox1.TabIndex = 4;
             groupBox1.TabStop = false;
-            groupBox1.Text = "Time sections";
+            groupBox1.Text = "Time trimming sections";
+            // 
+            // chkBlurSection
+            // 
+            chkBlurSection.BackColor = SystemColors.ControlLight;
+            chkBlurSection.Font = new Font("Segoe UI", 12F);
+            chkBlurSection.Location = new Point(451, 41);
+            chkBlurSection.Name = "chkBlurSection";
+            chkBlurSection.Size = new Size(242, 29);
+            chkBlurSection.TabIndex = 5;
+            chkBlurSection.Text = "With blur overlay";
+            chkBlurSection.UseVisualStyleBackColor = false;
+            // 
+            // chkBlurUseBottomRightPoint
+            // 
+            chkBlurUseBottomRightPoint.AutoSize = true;
+            chkBlurUseBottomRightPoint.Checked = true;
+            chkBlurUseBottomRightPoint.CheckState = CheckState.Checked;
+            chkBlurUseBottomRightPoint.Location = new Point(451, 132);
+            chkBlurUseBottomRightPoint.Name = "chkBlurUseBottomRightPoint";
+            chkBlurUseBottomRightPoint.Size = new Size(147, 19);
+            chkBlurUseBottomRightPoint.TabIndex = 2;
+            chkBlurUseBottomRightPoint.Text = "Use bottom right point";
+            chkBlurUseBottomRightPoint.UseVisualStyleBackColor = true;
+            chkBlurUseBottomRightPoint.CheckedChanged += chkBlurUseBottomRightPoint_CheckedChanged;
             // 
             // chkTimeFrom
             // 
@@ -124,6 +176,15 @@
             chkTimeFrom.TabIndex = 4;
             chkTimeFrom.Text = "From: ";
             chkTimeFrom.UseVisualStyleBackColor = true;
+            // 
+            // lblBlurBottomRightPointOrSize
+            // 
+            lblBlurBottomRightPointOrSize.AutoSize = true;
+            lblBlurBottomRightPointOrSize.Location = new Point(451, 161);
+            lblBlurBottomRightPointOrSize.Name = "lblBlurBottomRightPointOrSize";
+            lblBlurBottomRightPointOrSize.Size = new Size(109, 15);
+            lblBlurBottomRightPointOrSize.TabIndex = 1;
+            lblBlurBottomRightPointOrSize.Text = "Bottom right point:";
             // 
             // chkTimeTo
             // 
@@ -136,6 +197,51 @@
             chkTimeTo.TabIndex = 4;
             chkTimeTo.Text = "To:";
             chkTimeTo.UseVisualStyleBackColor = true;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Location = new Point(451, 95);
+            label4.Name = "label4";
+            label4.Size = new Size(80, 15);
+            label4.TabIndex = 1;
+            label4.Text = "Top left point:";
+            // 
+            // txtBlurBottomYOrHeight
+            // 
+            txtBlurBottomYOrHeight.Location = new Point(637, 158);
+            txtBlurBottomYOrHeight.Name = "txtBlurBottomYOrHeight";
+            txtBlurBottomYOrHeight.Size = new Size(56, 23);
+            txtBlurBottomYOrHeight.TabIndex = 0;
+            txtBlurBottomYOrHeight.Text = "768";
+            txtBlurBottomYOrHeight.TextAlign = HorizontalAlignment.Right;
+            // 
+            // txtBlurBottomXOrWidth
+            // 
+            txtBlurBottomXOrWidth.Location = new Point(575, 158);
+            txtBlurBottomXOrWidth.Name = "txtBlurBottomXOrWidth";
+            txtBlurBottomXOrWidth.Size = new Size(56, 23);
+            txtBlurBottomXOrWidth.TabIndex = 0;
+            txtBlurBottomXOrWidth.Text = "1024";
+            txtBlurBottomXOrWidth.TextAlign = HorizontalAlignment.Right;
+            // 
+            // txtBlurTopY
+            // 
+            txtBlurTopY.Location = new Point(637, 91);
+            txtBlurTopY.Name = "txtBlurTopY";
+            txtBlurTopY.Size = new Size(56, 23);
+            txtBlurTopY.TabIndex = 0;
+            txtBlurTopY.Text = "32";
+            txtBlurTopY.TextAlign = HorizontalAlignment.Right;
+            // 
+            // txtBlurTopX
+            // 
+            txtBlurTopX.Location = new Point(575, 91);
+            txtBlurTopX.Name = "txtBlurTopX";
+            txtBlurTopX.Size = new Size(56, 23);
+            txtBlurTopX.TabIndex = 0;
+            txtBlurTopX.Text = "0";
+            txtBlurTopX.TextAlign = HorizontalAlignment.Right;
             // 
             // btnDeleteTimeSection
             // 
@@ -202,8 +308,9 @@
             txtSourceFile.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             txtSourceFile.Location = new Point(129, 29);
             txtSourceFile.Name = "txtSourceFile";
-            txtSourceFile.Size = new Size(649, 23);
+            txtSourceFile.Size = new Size(979, 23);
             txtSourceFile.TabIndex = 5;
+            txtSourceFile.Text = "sample.txt";
             // 
             // label1
             // 
@@ -221,7 +328,7 @@
             txtCommands.Multiline = true;
             txtCommands.Name = "txtCommands";
             txtCommands.ScrollBars = ScrollBars.Both;
-            txtCommands.Size = new Size(753, 127);
+            txtCommands.Size = new Size(1083, 127);
             txtCommands.TabIndex = 7;
             // 
             // label2
@@ -244,11 +351,107 @@
             btnUpdateCommands.UseVisualStyleBackColor = true;
             btnUpdateCommands.Click += btnUpdateCommands_Click;
             // 
+            // groupBox2
+            // 
+            groupBox2.Controls.Add(chkCropSection);
+            groupBox2.Controls.Add(chkUseBottomRightPoint);
+            groupBox2.Controls.Add(lblBottomRightPointOrSize);
+            groupBox2.Controls.Add(label3);
+            groupBox2.Controls.Add(txtBottomYOrHeight);
+            groupBox2.Controls.Add(txtBottomXOrWidth);
+            groupBox2.Controls.Add(txtTopY);
+            groupBox2.Controls.Add(txtTopX);
+            groupBox2.Location = new Point(25, 82);
+            groupBox2.Name = "groupBox2";
+            groupBox2.Size = new Size(296, 227);
+            groupBox2.TabIndex = 9;
+            groupBox2.TabStop = false;
+            groupBox2.Text = "Crop";
+            // 
+            // chkCropSection
+            // 
+            chkCropSection.BackColor = SystemColors.ControlLight;
+            chkCropSection.Font = new Font("Segoe UI", 12F);
+            chkCropSection.Location = new Point(22, 41);
+            chkCropSection.Name = "chkCropSection";
+            chkCropSection.Size = new Size(242, 29);
+            chkCropSection.TabIndex = 2;
+            chkCropSection.Text = "Crop video size";
+            chkCropSection.UseVisualStyleBackColor = false;
+            // 
+            // chkUseBottomRightPoint
+            // 
+            chkUseBottomRightPoint.AutoSize = true;
+            chkUseBottomRightPoint.Checked = true;
+            chkUseBottomRightPoint.CheckState = CheckState.Checked;
+            chkUseBottomRightPoint.Location = new Point(22, 142);
+            chkUseBottomRightPoint.Name = "chkUseBottomRightPoint";
+            chkUseBottomRightPoint.Size = new Size(147, 19);
+            chkUseBottomRightPoint.TabIndex = 2;
+            chkUseBottomRightPoint.Text = "Use bottom right point";
+            chkUseBottomRightPoint.UseVisualStyleBackColor = true;
+            chkUseBottomRightPoint.CheckedChanged += chkUseBottomRightPoint_CheckedChanged;
+            // 
+            // lblBottomRightPointOrSize
+            // 
+            lblBottomRightPointOrSize.AutoSize = true;
+            lblBottomRightPointOrSize.Location = new Point(22, 185);
+            lblBottomRightPointOrSize.Name = "lblBottomRightPointOrSize";
+            lblBottomRightPointOrSize.Size = new Size(109, 15);
+            lblBottomRightPointOrSize.TabIndex = 1;
+            lblBottomRightPointOrSize.Text = "Bottom right point:";
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new Point(22, 99);
+            label3.Name = "label3";
+            label3.Size = new Size(80, 15);
+            label3.TabIndex = 1;
+            label3.Text = "Top left point:";
+            // 
+            // txtBottomYOrHeight
+            // 
+            txtBottomYOrHeight.Location = new Point(208, 182);
+            txtBottomYOrHeight.Name = "txtBottomYOrHeight";
+            txtBottomYOrHeight.Size = new Size(56, 23);
+            txtBottomYOrHeight.TabIndex = 0;
+            txtBottomYOrHeight.Text = "768";
+            txtBottomYOrHeight.TextAlign = HorizontalAlignment.Right;
+            // 
+            // txtBottomXOrWidth
+            // 
+            txtBottomXOrWidth.Location = new Point(146, 182);
+            txtBottomXOrWidth.Name = "txtBottomXOrWidth";
+            txtBottomXOrWidth.Size = new Size(56, 23);
+            txtBottomXOrWidth.TabIndex = 0;
+            txtBottomXOrWidth.Text = "1024";
+            txtBottomXOrWidth.TextAlign = HorizontalAlignment.Right;
+            // 
+            // txtTopY
+            // 
+            txtTopY.Location = new Point(208, 95);
+            txtTopY.Name = "txtTopY";
+            txtTopY.Size = new Size(56, 23);
+            txtTopY.TabIndex = 0;
+            txtTopY.Text = "32";
+            txtTopY.TextAlign = HorizontalAlignment.Right;
+            // 
+            // txtTopX
+            // 
+            txtTopX.Location = new Point(146, 95);
+            txtTopX.Name = "txtTopX";
+            txtTopX.Size = new Size(56, 23);
+            txtTopX.TabIndex = 0;
+            txtTopX.Text = "0";
+            txtTopX.TextAlign = HorizontalAlignment.Right;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(817, 551);
+            ClientSize = new Size(1147, 551);
+            Controls.Add(groupBox2);
             Controls.Add(btnUpdateCommands);
             Controls.Add(txtCommands);
             Controls.Add(label2);
@@ -259,6 +462,8 @@
             Text = "Form1";
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
+            groupBox2.ResumeLayout(false);
+            groupBox2.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -283,5 +488,22 @@
         private TextBox txtCommands;
         private Label label2;
         private Button btnUpdateCommands;
+        private GroupBox groupBox2;
+        private TextBox txtTopY;
+        private TextBox txtTopX;
+        private Label label3;
+        private CheckBox chkUseBottomRightPoint;
+        private Label lblBottomRightPointOrSize;
+        private TextBox txtBottomYOrHeight;
+        private TextBox txtBottomXOrWidth;
+        private CheckBox chkCropSection;
+        private CheckBox chkBlurSection;
+        private CheckBox chkBlurUseBottomRightPoint;
+        private Label lblBlurBottomRightPointOrSize;
+        private Label label4;
+        private TextBox txtBlurBottomYOrHeight;
+        private TextBox txtBlurBottomXOrWidth;
+        private TextBox txtBlurTopY;
+        private TextBox txtBlurTopX;
     }
 }
