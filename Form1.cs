@@ -29,7 +29,7 @@ public partial class Form1 : Form
         btnDeleteTimeSection.Enabled = true;
 
         //chkBlurSection.Checked = _currentTimeSection.CoverSection is not null;
-        cboRectangle.SelectedIndex = 
+        cboRectangle.SelectedIndex =
             _currentTimeSection.CoverSection is null ? 0 :
             _currentTimeSection.IsBlur ? 2 : 1
             ;
@@ -141,7 +141,7 @@ public partial class Form1 : Form
         btnMoveTimeSectionDown.Enabled = false;
         btnMoveTimeSectionUp.Enabled = false;
 
-        cboRectangle.SelectedIndex=0;
+        cboRectangle.SelectedIndex = 0;
         chkBlurUseBottomRightPoint.Checked = true;
         txtBlurTopX.Clear(); txtBlurTopY.Clear();
         txtBlurBottomXOrWidth.Clear(); txtBlurBottomYOrHeight.Clear();
@@ -243,7 +243,7 @@ public partial class Form1 : Form
     private Rectangle? GetBlurSection()
     {
 
-        if (cboRectangle.SelectedIndex==0) return null;
+        if (cboRectangle.SelectedIndex == 0) return null;
 
 
         bool parsed;
@@ -477,4 +477,22 @@ public partial class Form1 : Form
     #endregion
 
 
+    private void txtListOfFilesToMerge_DragDrop(object sender, DragEventArgs e)
+    {
+        //get list of files dropped
+        string[]? files = (string[]?)e.Data?.GetData(DataFormats.FileDrop);
+        if (files is null) return;
+
+        txtListOfFilesToMerge.Lines = [.. files!
+            .Select(f=>Path.GetFileName(f)!)
+            .Order()];
+
+    }
+
+    private void txtListOfFilesToMerge_DragEnter(object sender, DragEventArgs e)
+    {
+        //if list of files allow
+        if (e.Data?.GetDataPresent(DataFormats.FileDrop) == true)
+            e.Effect = DragDropEffects.Copy;
+    }
 }

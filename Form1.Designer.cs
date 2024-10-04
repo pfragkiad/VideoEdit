@@ -574,12 +574,16 @@
             // 
             // txtListOfFilesToMerge
             // 
+            txtListOfFilesToMerge.AllowDrop = true;
             txtListOfFilesToMerge.Location = new Point(21, 53);
             txtListOfFilesToMerge.Multiline = true;
             txtListOfFilesToMerge.Name = "txtListOfFilesToMerge";
             txtListOfFilesToMerge.ScrollBars = ScrollBars.Both;
             txtListOfFilesToMerge.Size = new Size(283, 202);
             txtListOfFilesToMerge.TabIndex = 7;
+            txtListOfFilesToMerge.WordWrap = false;
+            txtListOfFilesToMerge.DragDrop += txtListOfFilesToMerge_DragDrop;
+            txtListOfFilesToMerge.DragEnter += txtListOfFilesToMerge_DragEnter;
             // 
             // chkKeepExistingCommands
             // 
