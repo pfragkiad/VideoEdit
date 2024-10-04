@@ -46,7 +46,7 @@
             btnUpdateTimeSection = new Button();
             btnMoveTimeSectionDown = new Button();
             btnMoveTimeSectionUp = new Button();
-            btnResetTimeSection = new Button();
+            btnNewTimeSection = new Button();
             btnAddTimeSection = new Button();
             txtSourceFile = new TextBox();
             label1 = new Label();
@@ -93,9 +93,9 @@
             // 
             // btnClearTimeSections
             // 
-            btnClearTimeSections.Location = new Point(49, 222);
+            btnClearTimeSections.Location = new Point(49, 216);
             btnClearTimeSections.Name = "btnClearTimeSections";
-            btnClearTimeSections.Size = new Size(75, 23);
+            btnClearTimeSections.Size = new Size(75, 29);
             btnClearTimeSections.TabIndex = 2;
             btnClearTimeSections.Text = "Clear";
             btnClearTimeSections.UseVisualStyleBackColor = true;
@@ -227,9 +227,9 @@
             // 
             // btnDeleteTimeSection
             // 
-            btnDeleteTimeSection.Location = new Point(447, 222);
+            btnDeleteTimeSection.Location = new Point(447, 216);
             btnDeleteTimeSection.Name = "btnDeleteTimeSection";
-            btnDeleteTimeSection.Size = new Size(74, 23);
+            btnDeleteTimeSection.Size = new Size(74, 29);
             btnDeleteTimeSection.TabIndex = 2;
             btnDeleteTimeSection.Text = "Delete";
             btnDeleteTimeSection.UseVisualStyleBackColor = true;
@@ -237,9 +237,9 @@
             // 
             // btnUpdateTimeSection
             // 
-            btnUpdateTimeSection.Location = new Point(368, 222);
+            btnUpdateTimeSection.Location = new Point(368, 216);
             btnUpdateTimeSection.Name = "btnUpdateTimeSection";
-            btnUpdateTimeSection.Size = new Size(74, 23);
+            btnUpdateTimeSection.Size = new Size(74, 29);
             btnUpdateTimeSection.TabIndex = 2;
             btnUpdateTimeSection.Text = "Update";
             btnUpdateTimeSection.UseVisualStyleBackColor = true;
@@ -265,21 +265,21 @@
             btnMoveTimeSectionUp.UseVisualStyleBackColor = true;
             btnMoveTimeSectionUp.Click += btnMoveTimeSectionUp_Click;
             // 
-            // btnResetTimeSection
+            // btnNewTimeSection
             // 
-            btnResetTimeSection.Location = new Point(210, 222);
-            btnResetTimeSection.Name = "btnResetTimeSection";
-            btnResetTimeSection.Size = new Size(74, 23);
-            btnResetTimeSection.TabIndex = 2;
-            btnResetTimeSection.Text = "Reset";
-            btnResetTimeSection.UseVisualStyleBackColor = true;
-            btnResetTimeSection.Click += btnResetTimeSection_Click;
+            btnNewTimeSection.Location = new Point(210, 216);
+            btnNewTimeSection.Name = "btnNewTimeSection";
+            btnNewTimeSection.Size = new Size(74, 29);
+            btnNewTimeSection.TabIndex = 2;
+            btnNewTimeSection.Text = "New";
+            btnNewTimeSection.UseVisualStyleBackColor = true;
+            btnNewTimeSection.Click += btnNewTimeSection_Click;
             // 
             // btnAddTimeSection
             // 
-            btnAddTimeSection.Location = new Point(289, 222);
+            btnAddTimeSection.Location = new Point(289, 216);
             btnAddTimeSection.Name = "btnAddTimeSection";
-            btnAddTimeSection.Size = new Size(74, 23);
+            btnAddTimeSection.Size = new Size(74, 29);
             btnAddTimeSection.TabIndex = 2;
             btnAddTimeSection.Text = "Add";
             btnAddTimeSection.UseVisualStyleBackColor = true;
@@ -457,7 +457,7 @@
             tabPage2.Controls.Add(btnMoveTimeSectionUp);
             tabPage2.Controls.Add(btnClearTimeSections);
             tabPage2.Controls.Add(btnAddTimeSection);
-            tabPage2.Controls.Add(btnResetTimeSection);
+            tabPage2.Controls.Add(btnNewTimeSection);
             tabPage2.Controls.Add(btnMoveTimeSectionDown);
             tabPage2.Controls.Add(btnUpdateTimeSection);
             tabPage2.Controls.Add(btnDeleteTimeSection);
@@ -579,7 +579,7 @@
         private CheckBox chkTimeFrom;
         private CheckBox chkTimeTo;
         private Button btnUpdateTimeSection;
-        private Button btnResetTimeSection;
+        private Button btnNewTimeSection;
         private Button btnMoveTimeSectionDown;
         private Button btnMoveTimeSectionUp;
         private TextBox txtSourceFile;

@@ -373,7 +373,7 @@ public partial class Form1 : Form
     }
 
 
-    private void btnResetTimeSection_Click(object sender, EventArgs e)
+    private void btnNewTimeSection_Click(object sender, EventArgs e)
     {
         ResetTimeSection();
     }
