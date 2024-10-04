@@ -45,16 +45,16 @@ public class TimeSection
     }
 
     public string ToFfmpegCommand(string inputFileName, int? outputIndex,
-        Rectangle? cropSection = null)
+        string? postfix, Rectangle? cropSection = null)
     {
 
         string filenameWithoutExtension = Path.GetFileNameWithoutExtension(inputFileName);
         string extension = Path.GetExtension(inputFileName);
 
         bool isPart = outputIndex is not null;  
-        string partSuffix = isPart ? $"_part{outputIndex}" : 
-                (cropSection.HasValue ? "_cropped" : "_merged");
-        string outputFileName = $"{filenameWithoutExtension}_{partSuffix}{extension}";
+        string fullPostfix = isPart ? $"_part{outputIndex}{postfix}" : 
+                (postfix is null ? "_merged" : postfix );
+        string outputFileName = $"{filenameWithoutExtension}{fullPostfix}{extension}";
 
         StringBuilder stringBuilder = new($"ffmpeg -i \"{inputFileName}\" ");
         
