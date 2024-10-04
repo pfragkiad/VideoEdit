@@ -32,7 +32,6 @@
             btnClearTimeSections = new Button();
             txtFrom = new MaskedTextBox();
             txtTo = new MaskedTextBox();
-            chkBlurSection = new CheckBox();
             chkBlurUseBottomRightPoint = new CheckBox();
             chkTimeFrom = new CheckBox();
             lblBlurBottomRightPointOrSize = new Label();
@@ -67,14 +66,16 @@
             tabSections = new TabPage();
             groupBox1 = new GroupBox();
             groupBox3 = new GroupBox();
-            tabMerge = new TabPage();
-            label5 = new Label();
-            txtListOfFilesToMerge = new TextBox();
             label6 = new Label();
             txtPostfix = new TextBox();
-            chkKeepExistingCommands = new CheckBox();
+            tabMerge = new TabPage();
             label7 = new Label();
             txtMergedOutputFile = new TextBox();
+            label5 = new Label();
+            txtListOfFilesToMerge = new TextBox();
+            chkKeepExistingCommands = new CheckBox();
+            cboRectangle = new ComboBox();
+            label8 = new Label();
             groupBox2.SuspendLayout();
             tabControl1.SuspendLayout();
             tabPreprocess.SuspendLayout();
@@ -130,22 +131,12 @@
             txtTo.TextAlign = HorizontalAlignment.Center;
             txtTo.KeyPress += txtTo_KeyPress;
             // 
-            // chkBlurSection
-            // 
-            chkBlurSection.ForeColor = Color.Blue;
-            chkBlurSection.Location = new Point(20, 27);
-            chkBlurSection.Name = "chkBlurSection";
-            chkBlurSection.Size = new Size(242, 29);
-            chkBlurSection.TabIndex = 5;
-            chkBlurSection.Text = "With blur overlay";
-            chkBlurSection.UseVisualStyleBackColor = false;
-            // 
             // chkBlurUseBottomRightPoint
             // 
             chkBlurUseBottomRightPoint.AutoSize = true;
             chkBlurUseBottomRightPoint.Checked = true;
             chkBlurUseBottomRightPoint.CheckState = CheckState.Checked;
-            chkBlurUseBottomRightPoint.Location = new Point(281, 32);
+            chkBlurUseBottomRightPoint.Location = new Point(281, 36);
             chkBlurUseBottomRightPoint.Name = "chkBlurUseBottomRightPoint";
             chkBlurUseBottomRightPoint.Size = new Size(147, 19);
             chkBlurUseBottomRightPoint.TabIndex = 2;
@@ -489,7 +480,8 @@
             // 
             // groupBox3
             // 
-            groupBox3.Controls.Add(chkBlurSection);
+            groupBox3.Controls.Add(cboRectangle);
+            groupBox3.Controls.Add(label8);
             groupBox3.Controls.Add(label4);
             groupBox3.Controls.Add(lblBlurBottomRightPointOrSize);
             groupBox3.Controls.Add(txtBlurTopY);
@@ -502,7 +494,24 @@
             groupBox3.Size = new Size(576, 128);
             groupBox3.TabIndex = 6;
             groupBox3.TabStop = false;
-            groupBox3.Text = "Blur";
+            groupBox3.Text = "Blur/Cover";
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Location = new Point(826, 223);
+            label6.Name = "label6";
+            label6.Size = new Size(87, 15);
+            label6.TabIndex = 6;
+            label6.Text = "Output postfix:";
+            // 
+            // txtPostfix
+            // 
+            txtPostfix.Location = new Point(918, 220);
+            txtPostfix.Name = "txtPostfix";
+            txtPostfix.Size = new Size(105, 23);
+            txtPostfix.TabIndex = 5;
+            txtPostfix.Text = "__final";
             // 
             // tabMerge
             // 
@@ -516,6 +525,23 @@
             tabMerge.TabIndex = 2;
             tabMerge.Text = "Merge";
             tabMerge.UseVisualStyleBackColor = true;
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Location = new Point(365, 24);
+            label7.Name = "label7";
+            label7.Size = new Size(67, 15);
+            label7.TabIndex = 10;
+            label7.Text = "Output file:";
+            // 
+            // txtMergedOutputFile
+            // 
+            txtMergedOutputFile.Location = new Point(365, 53);
+            txtMergedOutputFile.Name = "txtMergedOutputFile";
+            txtMergedOutputFile.Size = new Size(171, 23);
+            txtMergedOutputFile.TabIndex = 9;
+            txtMergedOutputFile.Text = "output_merged.mp4";
             // 
             // label5
             // 
@@ -535,23 +561,6 @@
             txtListOfFilesToMerge.Size = new Size(283, 202);
             txtListOfFilesToMerge.TabIndex = 7;
             // 
-            // label6
-            // 
-            label6.AutoSize = true;
-            label6.Location = new Point(826, 223);
-            label6.Name = "label6";
-            label6.Size = new Size(87, 15);
-            label6.TabIndex = 6;
-            label6.Text = "Output postfix:";
-            // 
-            // txtPostfix
-            // 
-            txtPostfix.Location = new Point(918, 220);
-            txtPostfix.Name = "txtPostfix";
-            txtPostfix.Size = new Size(105, 23);
-            txtPostfix.TabIndex = 5;
-            txtPostfix.Text = "__final";
-            // 
             // chkKeepExistingCommands
             // 
             chkKeepExistingCommands.AutoSize = true;
@@ -562,22 +571,24 @@
             chkKeepExistingCommands.Text = "Keep existing commands";
             chkKeepExistingCommands.UseVisualStyleBackColor = true;
             // 
-            // label7
+            // cboRectangle
             // 
-            label7.AutoSize = true;
-            label7.Location = new Point(365, 24);
-            label7.Name = "label7";
-            label7.Size = new Size(67, 15);
-            label7.TabIndex = 10;
-            label7.Text = "Output file:";
+            cboRectangle.DropDownStyle = ComboBoxStyle.DropDownList;
+            cboRectangle.FormattingEnabled = true;
+            cboRectangle.Items.AddRange(new object[] { "<None>", "Color fill", "Blur" });
+            cboRectangle.Location = new Point(141, 32);
+            cboRectangle.Name = "cboRectangle";
+            cboRectangle.Size = new Size(118, 23);
+            cboRectangle.TabIndex = 6;
             // 
-            // txtMergedOutputFile
+            // label8
             // 
-            txtMergedOutputFile.Location = new Point(365, 53);
-            txtMergedOutputFile.Name = "txtMergedOutputFile";
-            txtMergedOutputFile.Size = new Size(171, 23);
-            txtMergedOutputFile.TabIndex = 9;
-            txtMergedOutputFile.Text = "output_merged.mp4";
+            label8.AutoSize = true;
+            label8.Location = new Point(17, 33);
+            label8.Name = "label8";
+            label8.Size = new Size(88, 15);
+            label8.TabIndex = 1;
+            label8.Text = "Rectangle type:";
             // 
             // Form1
             // 
@@ -637,7 +648,6 @@
         private TextBox txtBottomYOrHeight;
         private TextBox txtBottomXOrWidth;
         private CheckBox chkCropSection;
-        private CheckBox chkBlurSection;
         private CheckBox chkBlurUseBottomRightPoint;
         private Label lblBlurBottomRightPointOrSize;
         private Label label4;
@@ -658,5 +668,7 @@
         private CheckBox chkKeepExistingCommands;
         private Label label7;
         private TextBox txtMergedOutputFile;
+        private ComboBox cboRectangle;
+        private Label label8;
     }
 }

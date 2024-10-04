@@ -28,10 +28,16 @@ public partial class Form1 : Form
         btnAddTimeSection.Enabled = false;
         btnDeleteTimeSection.Enabled = true;
 
-        chkBlurSection.Checked = _currentTimeSection.BlurSection is not null;
-        if (_currentTimeSection.BlurSection is not null)
+        //chkBlurSection.Checked = _currentTimeSection.CoverSection is not null;
+        cboRectangle.SelectedIndex = 
+            _currentTimeSection.CoverSection is null ? 0 :
+            _currentTimeSection.IsBlur ? 2 : 1
+            ;
+
+
+        if (_currentTimeSection.CoverSection is not null)
         {
-            var r = _currentTimeSection.BlurSection.Value;
+            var r = _currentTimeSection.CoverSection.Value;
             txtBlurTopX.Text = r.X.ToString();
             txtBlurTopY.Text = r.Y.ToString();
             chkBlurUseBottomRightPoint.Checked = true;
@@ -104,7 +110,8 @@ public partial class Form1 : Form
         {
             From = fromParsed && chkTimeFrom.Checked ? from : null,
             To = toParsed && chkTimeTo.Checked ? to : null,
-            BlurSection = blurSection
+            CoverSection = blurSection,
+            IsBlur = cboRectangle.SelectedIndex == 2
         };
     }
 
@@ -134,7 +141,7 @@ public partial class Form1 : Form
         btnMoveTimeSectionDown.Enabled = false;
         btnMoveTimeSectionUp.Enabled = false;
 
-        chkBlurSection.Checked = false;
+        cboRectangle.SelectedIndex=0;
         chkBlurUseBottomRightPoint.Checked = true;
         txtBlurTopX.Clear(); txtBlurTopY.Clear();
         txtBlurBottomXOrWidth.Clear(); txtBlurBottomYOrHeight.Clear();
@@ -236,7 +243,7 @@ public partial class Form1 : Form
     private Rectangle? GetBlurSection()
     {
 
-        if (!chkBlurSection.Checked) return null;
+        if (cboRectangle.SelectedIndex==0) return null;
 
 
         bool parsed;
