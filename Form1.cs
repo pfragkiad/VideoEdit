@@ -265,21 +265,17 @@ public partial class Form1 : Form
             Width = chkBlurUseBottomRightPoint.Checked ? wOrX - topX + 1 : wOrX,
             Height = chkBlurUseBottomRightPoint.Checked ? hOrY - topY + 1 : hOrY
         };
-
-
-
     }
 
 
     public void UpdateCommands()
     {
-        txtCommands.Clear();
 
         var timeSections = lstTimeSections.Items.Cast<TimeSection>().ToList();
         if (timeSections.Count == 0) return;
 
-
-
+        if (!chkKeepExistingCommands.Checked)
+            txtCommands.Clear();
 
         string inputFile = txtSourceFile.Text.Trim();
         bool isFileEmpty = string.IsNullOrWhiteSpace(inputFile);
@@ -319,7 +315,8 @@ public partial class Form1 : Form
         txtCommands.AppendText(echoCommand + "\r\n");
 
         //merge command
-        string mergeCommand = $"ffmpeg -safe 0 -f concat -i list.txt -c copy \"{Path.GetFileNameWithoutExtension(inputFile)}__merged{extension}\"";
+        string postfix = txtPostfix.Text;
+        string mergeCommand = $"ffmpeg -safe 0 -f concat -i list.txt -c copy \"{Path.GetFileNameWithoutExtension(inputFile)}{postfix}{extension}\"";
         txtCommands.AppendText(mergeCommand + "\r\n");
 
         //delete command 
@@ -337,7 +334,8 @@ public partial class Form1 : Form
 
         if (files.Length == 0) return;
 
-        txtCommands.Clear();
+        if (!chkKeepExistingCommands.Checked)
+            txtCommands.Clear();
 
         //write the echo command
         string echoCommand = string.Join(" & ", files.Select((x, i) => $"echo file '{Path.GetFileNameWithoutExtension(x)}__part{i + 1}{Path.GetExtension(x)}'"));
@@ -346,7 +344,9 @@ public partial class Form1 : Form
         txtCommands.AppendText(echoCommand + "\r\n");
 
         //merge command
-        string mergeCommand = $"ffmpeg -safe 0 -f concat -i list.txt -c copy \"output__merged{Path.GetExtension(files[0])}\"";
+        string output = txtMergedOutputFile.Text;
+
+        string mergeCommand = $"ffmpeg -safe 0 -f concat -i list.txt -c copy \"{output}\"";
         txtCommands.AppendText(mergeCommand + "\r\n");
     }
 
@@ -411,6 +411,11 @@ public partial class Form1 : Form
 
     private void btnUpdateCommands_Click(object sender, EventArgs e)
     {
+        if (tabControl1.SelectedTab == tabMerge)
+        {
+            UpdateMergeCommands();
+            return;
+        }
         UpdateCommands();
     }
     private void chkUseBottomRightPoint_CheckedChanged(object sender, EventArgs e)
