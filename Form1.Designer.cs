@@ -66,6 +66,8 @@
             tabSections = new TabPage();
             groupBox1 = new GroupBox();
             groupBox3 = new GroupBox();
+            cboRectangle = new ComboBox();
+            label8 = new Label();
             label6 = new Label();
             txtPostfix = new TextBox();
             tabMerge = new TabPage();
@@ -74,8 +76,6 @@
             label5 = new Label();
             txtListOfFilesToMerge = new TextBox();
             chkKeepExistingCommands = new CheckBox();
-            cboRectangle = new ComboBox();
-            label8 = new Label();
             groupBox2.SuspendLayout();
             tabControl1.SuspendLayout();
             tabPreprocess.SuspendLayout();
@@ -306,6 +306,7 @@
             txtCommands.ScrollBars = ScrollBars.Both;
             txtCommands.Size = new Size(1067, 243);
             txtCommands.TabIndex = 7;
+            txtCommands.WordWrap = false;
             // 
             // label2
             // 
@@ -496,6 +497,25 @@
             groupBox3.TabStop = false;
             groupBox3.Text = "Blur/Cover";
             // 
+            // cboRectangle
+            // 
+            cboRectangle.DropDownStyle = ComboBoxStyle.DropDownList;
+            cboRectangle.FormattingEnabled = true;
+            cboRectangle.Items.AddRange(new object[] { "<None>", "Color fill", "Blur" });
+            cboRectangle.Location = new Point(141, 32);
+            cboRectangle.Name = "cboRectangle";
+            cboRectangle.Size = new Size(118, 23);
+            cboRectangle.TabIndex = 6;
+            // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.Location = new Point(17, 33);
+            label8.Name = "label8";
+            label8.Size = new Size(88, 15);
+            label8.TabIndex = 1;
+            label8.Text = "Rectangle type:";
+            // 
             // label6
             // 
             label6.AutoSize = true;
@@ -570,25 +590,6 @@
             chkKeepExistingCommands.TabIndex = 9;
             chkKeepExistingCommands.Text = "Keep existing commands";
             chkKeepExistingCommands.UseVisualStyleBackColor = true;
-            // 
-            // cboRectangle
-            // 
-            cboRectangle.DropDownStyle = ComboBoxStyle.DropDownList;
-            cboRectangle.FormattingEnabled = true;
-            cboRectangle.Items.AddRange(new object[] { "<None>", "Color fill", "Blur" });
-            cboRectangle.Location = new Point(141, 32);
-            cboRectangle.Name = "cboRectangle";
-            cboRectangle.Size = new Size(118, 23);
-            cboRectangle.TabIndex = 6;
-            // 
-            // label8
-            // 
-            label8.AutoSize = true;
-            label8.Location = new Point(17, 33);
-            label8.Name = "label8";
-            label8.Size = new Size(88, 15);
-            label8.TabIndex = 1;
-            label8.Text = "Rectangle type:";
             // 
             // Form1
             // 
