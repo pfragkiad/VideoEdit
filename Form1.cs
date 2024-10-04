@@ -158,27 +158,37 @@ public partial class Form1 : Form
     {
         if (_currentTimeSection is null) return;
 
+        var timeSectionToMove = _currentTimeSection;
+
         int currentLocation = lstTimeSections.SelectedIndex;
         if (currentLocation <= 0) return;
 
         //_sections.RemoveAt(currentLocation);
         //_sections.Insert(currentLocation - 1, _currentTimeSection);
 
+        lstTimeSections.SelectedValueChanged -= lstTimeSections_SelectedValueChanged;
         lstTimeSections.Items.RemoveAt(currentLocation);
-        lstTimeSections.Items.Insert(currentLocation - 1, _currentTimeSection);
+        lstTimeSections.Items.Insert(currentLocation - 1, timeSectionToMove);
+        lstTimeSections.SelectedValueChanged += lstTimeSections_SelectedValueChanged;
+        lstTimeSections.SelectedIndex = currentLocation - 1;
     }
 
     private void MoveCurrentTimeSectionDown()
     {
         if (_currentTimeSection is null) return;
 
+        var timeSectionToMove = _currentTimeSection;
+
         int currentLocation = lstTimeSections.SelectedIndex;
         if (currentLocation >= lstTimeSections.Items.Count - 1) return;
 
         //_sections.RemoveAt(currentLocation);
         //_sections.Insert(currentLocation + 1, _currentTimeSection);
+        lstTimeSections.SelectedValueChanged -= lstTimeSections_SelectedValueChanged;
         lstTimeSections.Items.RemoveAt(currentLocation);
-        lstTimeSections.Items.Insert(currentLocation + 1, _currentTimeSection);
+        lstTimeSections.Items.Insert(currentLocation + 1, timeSectionToMove);
+        lstTimeSections.SelectedValueChanged += lstTimeSections_SelectedValueChanged;
+        lstTimeSections.SelectedIndex = currentLocation + 1;
     }
     private Rectangle? GetCropSection()
     {
@@ -338,7 +348,7 @@ public partial class Form1 : Form
             txtCommands.Clear();
 
         //write the echo command
-        string echoCommand = string.Join(" & ", files.Select(f=> $"echo file '{f}'"));
+        string echoCommand = string.Join(" & ", files.Select(f => $"echo file '{f}'"));
         echoCommand = $"({echoCommand}) >list.txt";
 
         txtCommands.AppendText(echoCommand + "\r\n");
