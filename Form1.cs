@@ -382,9 +382,14 @@ public partial class Form1 : Form
 
     private void txtTo_KeyPress(object sender, KeyPressEventArgs e)
     {
-        if (e.KeyChar == (char)Keys.Enter)
+        if (e.KeyChar != (char)Keys.Enter) return;
 
-            btnAddTimeSection_Click(sender, e);
+        if (_currentTimeSection is null)
+        {
+            btnAddTimeSection_Click(sender, e); return;
+        }
+
+        btnUpdateTimeSection_Click(sender, e);
     }
 
     private void btnAddTimeSection_Click(object sender, EventArgs e)
