@@ -78,10 +78,10 @@
             txtMergeListFile = new TextBox();
             txtListOfFilesToMerge = new TextBox();
             tabRemux = new TabPage();
+            chkCopyStream = new CheckBox();
             label9 = new Label();
             txtListOfFilesToRemux = new TextBox();
             chkKeepExistingCommands = new CheckBox();
-            chkCopyStream = new CheckBox();
             groupBox2.SuspendLayout();
             tabControl1.SuspendLayout();
             tabPreprocess.SuspendLayout();
@@ -627,8 +627,20 @@
             tabRemux.Name = "tabRemux";
             tabRemux.Size = new Size(980, 276);
             tabRemux.TabIndex = 3;
-            tabRemux.Text = "Remux (mkv->mp4)";
+            tabRemux.Text = "Remux to mp4";
             tabRemux.UseVisualStyleBackColor = true;
+            // 
+            // chkCopyStream
+            // 
+            chkCopyStream.AutoSize = true;
+            chkCopyStream.Checked = true;
+            chkCopyStream.CheckState = CheckState.Checked;
+            chkCopyStream.Location = new Point(350, 22);
+            chkCopyStream.Name = "chkCopyStream";
+            chkCopyStream.Size = new Size(93, 19);
+            chkCopyStream.TabIndex = 11;
+            chkCopyStream.Text = "Copy stream";
+            chkCopyStream.UseVisualStyleBackColor = true;
             // 
             // label9
             // 
@@ -662,18 +674,6 @@
             chkKeepExistingCommands.TabIndex = 9;
             chkKeepExistingCommands.Text = "Keep existing commands";
             chkKeepExistingCommands.UseVisualStyleBackColor = true;
-            // 
-            // chkCopyStream
-            // 
-            chkCopyStream.AutoSize = true;
-            chkCopyStream.Checked = true;
-            chkCopyStream.CheckState = CheckState.Checked;
-            chkCopyStream.Location = new Point(350, 22);
-            chkCopyStream.Name = "chkCopyStream";
-            chkCopyStream.Size = new Size(93, 19);
-            chkCopyStream.TabIndex = 11;
-            chkCopyStream.Text = "Copy stream";
-            chkCopyStream.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
