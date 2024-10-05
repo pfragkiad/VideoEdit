@@ -369,6 +369,27 @@ public partial class Form1 : Form
         txtCommands.AppendText(deleteCommand + "\r\n");
     }
 
+    private void UpdateRemuxCommands()
+    {
+        string[] files = txtListOfFilesToRemux
+           .Lines
+           .Where(l => !string.IsNullOrWhiteSpace(l))
+           .Select(l => l.Trim())
+           .ToArray();
+
+        if (files.Length == 0) return;
+
+        if (!chkKeepExistingCommands.Checked)
+            txtCommands.Clear();
+
+        foreach (string file in files)
+        {
+            // ffmpeg -i "29 2021-01-20 13-32-13.mkv" -c copy "29 2021-01-20 13-32-13.mp4"
+            string command = $"ffmpeg -i \"{file}\" -c copy \"{Path.GetFileNameWithoutExtension(file)}.mp4\"";
+            txtCommands.AppendText(command + "\r\n");
+        }
+    }
+
 
     #region Handlers
 
@@ -440,8 +461,17 @@ public partial class Form1 : Form
             UpdateMergeCommands();
             return;
         }
+
+        if(tabControl1.SelectedTab == tabRemux)
+        {
+            UpdateRemuxCommands();
+            return;
+        }
+
         UpdateCommands();
     }
+
+
     private void chkUseBottomRightPoint_CheckedChanged(object sender, EventArgs e)
     {
         lblBottomRightPointOrSize.Text = chkUseBottomRightPoint.Checked ? "Bottom Right Point: " : "Size (Width, Height):";
@@ -496,6 +526,23 @@ public partial class Form1 : Form
     private void txtListOfFilesToMerge_DragEnter(object sender, DragEventArgs e)
     {
         //if list of files allow
+        if (e.Data?.GetDataPresent(DataFormats.FileDrop) == true)
+            e.Effect = DragDropEffects.Copy;
+    }
+
+    private void txtListOfFilesToRemux_DragDrop(object sender, DragEventArgs e)
+    {
+        string[]? files = (string[]?)e.Data?.GetData(DataFormats.FileDrop);
+        if (files is null) return;
+
+        txtListOfFilesToRemux.Lines = [.. files!
+            .Select(f=>Path.GetFileName(f)!)
+            .Order()];
+    }
+
+    private void txtListOfFilesToRemux_DragEnter(object sender, DragEventArgs e)
+    {
+   //if list of files allow
         if (e.Data?.GetDataPresent(DataFormats.FileDrop) == true)
             e.Effect = DragDropEffects.Copy;
     }

@@ -75,6 +75,9 @@
             txtMergedOutputFile = new TextBox();
             label5 = new Label();
             txtListOfFilesToMerge = new TextBox();
+            tabRemux = new TabPage();
+            label9 = new Label();
+            txtListOfFilesToRemux = new TextBox();
             chkKeepExistingCommands = new CheckBox();
             groupBox2.SuspendLayout();
             tabControl1.SuspendLayout();
@@ -83,6 +86,7 @@
             groupBox1.SuspendLayout();
             groupBox3.SuspendLayout();
             tabMerge.SuspendLayout();
+            tabRemux.SuspendLayout();
             SuspendLayout();
             // 
             // lstTimeSections
@@ -428,6 +432,7 @@
             tabControl1.Controls.Add(tabPreprocess);
             tabControl1.Controls.Add(tabSections);
             tabControl1.Controls.Add(tabMerge);
+            tabControl1.Controls.Add(tabRemux);
             tabControl1.Location = new Point(25, 67);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
@@ -461,7 +466,7 @@
             tabSections.Location = new Point(4, 24);
             tabSections.Name = "tabSections";
             tabSections.Padding = new Padding(3);
-            tabSections.Size = new Size(1063, 276);
+            tabSections.Size = new Size(980, 276);
             tabSections.TabIndex = 1;
             tabSections.Text = "Time sections";
             tabSections.UseVisualStyleBackColor = true;
@@ -542,7 +547,7 @@
             tabMerge.Controls.Add(txtListOfFilesToMerge);
             tabMerge.Location = new Point(4, 24);
             tabMerge.Name = "tabMerge";
-            tabMerge.Size = new Size(1063, 276);
+            tabMerge.Size = new Size(980, 276);
             tabMerge.TabIndex = 2;
             tabMerge.Text = "Merge";
             tabMerge.UseVisualStyleBackColor = true;
@@ -586,6 +591,39 @@
             txtListOfFilesToMerge.DragDrop += txtListOfFilesToMerge_DragDrop;
             txtListOfFilesToMerge.DragEnter += txtListOfFilesToMerge_DragEnter;
             // 
+            // tabRemux
+            // 
+            tabRemux.Controls.Add(label9);
+            tabRemux.Controls.Add(txtListOfFilesToRemux);
+            tabRemux.Location = new Point(4, 24);
+            tabRemux.Name = "tabRemux";
+            tabRemux.Size = new Size(980, 276);
+            tabRemux.TabIndex = 3;
+            tabRemux.Text = "Remux (mkv->mp4)";
+            tabRemux.UseVisualStyleBackColor = true;
+            // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.Location = new Point(21, 22);
+            label9.Name = "label9";
+            label9.Size = new Size(66, 15);
+            label9.TabIndex = 10;
+            label9.Text = "List of files:";
+            // 
+            // txtListOfFilesToRemux
+            // 
+            txtListOfFilesToRemux.AllowDrop = true;
+            txtListOfFilesToRemux.Location = new Point(23, 51);
+            txtListOfFilesToRemux.Multiline = true;
+            txtListOfFilesToRemux.Name = "txtListOfFilesToRemux";
+            txtListOfFilesToRemux.ScrollBars = ScrollBars.Both;
+            txtListOfFilesToRemux.Size = new Size(283, 202);
+            txtListOfFilesToRemux.TabIndex = 9;
+            txtListOfFilesToRemux.WordWrap = false;
+            txtListOfFilesToRemux.DragDrop += txtListOfFilesToRemux_DragDrop;
+            txtListOfFilesToRemux.DragEnter += txtListOfFilesToRemux_DragEnter;
+            // 
             // chkKeepExistingCommands
             // 
             chkKeepExistingCommands.Anchor = AnchorStyles.Top | AnchorStyles.Right;
@@ -623,6 +661,8 @@
             groupBox3.PerformLayout();
             tabMerge.ResumeLayout(false);
             tabMerge.PerformLayout();
+            tabRemux.ResumeLayout(false);
+            tabRemux.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -677,5 +717,8 @@
         private TextBox txtMergedOutputFile;
         private ComboBox cboRectangle;
         private Label label8;
+        private TabPage tabRemux;
+        private Label label9;
+        private TextBox txtListOfFilesToRemux;
     }
 }
