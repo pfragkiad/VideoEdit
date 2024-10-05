@@ -73,14 +73,15 @@
             tabMerge = new TabPage();
             label7 = new Label();
             txtMergedOutputFile = new TextBox();
+            label10 = new Label();
             label5 = new Label();
+            txtMergeListFile = new TextBox();
             txtListOfFilesToMerge = new TextBox();
             tabRemux = new TabPage();
             label9 = new Label();
             txtListOfFilesToRemux = new TextBox();
             chkKeepExistingCommands = new CheckBox();
-            txtMergeListFile = new TextBox();
-            label10 = new Label();
+            chkCopyStream = new CheckBox();
             groupBox2.SuspendLayout();
             tabControl1.SuspendLayout();
             tabPreprocess.SuspendLayout();
@@ -573,6 +574,15 @@
             txtMergedOutputFile.TabIndex = 9;
             txtMergedOutputFile.Text = "output_merged.mp4";
             // 
+            // label10
+            // 
+            label10.AutoSize = true;
+            label10.Location = new Point(573, 24);
+            label10.Name = "label10";
+            label10.Size = new Size(96, 15);
+            label10.TabIndex = 8;
+            label10.Text = "List file contents:";
+            // 
             // label5
             // 
             label5.AutoSize = true;
@@ -581,6 +591,19 @@
             label5.Size = new Size(66, 15);
             label5.TabIndex = 8;
             label5.Text = "List of files:";
+            // 
+            // txtMergeListFile
+            // 
+            txtMergeListFile.AllowDrop = true;
+            txtMergeListFile.Location = new Point(573, 53);
+            txtMergeListFile.Multiline = true;
+            txtMergeListFile.Name = "txtMergeListFile";
+            txtMergeListFile.ScrollBars = ScrollBars.Both;
+            txtMergeListFile.Size = new Size(283, 202);
+            txtMergeListFile.TabIndex = 7;
+            txtMergeListFile.WordWrap = false;
+            txtMergeListFile.DragDrop += txtListOfFilesToMerge_DragDrop;
+            txtMergeListFile.DragEnter += txtListOfFilesToMerge_DragEnter;
             // 
             // txtListOfFilesToMerge
             // 
@@ -597,6 +620,7 @@
             // 
             // tabRemux
             // 
+            tabRemux.Controls.Add(chkCopyStream);
             tabRemux.Controls.Add(label9);
             tabRemux.Controls.Add(txtListOfFilesToRemux);
             tabRemux.Location = new Point(4, 24);
@@ -639,27 +663,17 @@
             chkKeepExistingCommands.Text = "Keep existing commands";
             chkKeepExistingCommands.UseVisualStyleBackColor = true;
             // 
-            // txtMergeListFile
+            // chkCopyStream
             // 
-            txtMergeListFile.AllowDrop = true;
-            txtMergeListFile.Location = new Point(573, 53);
-            txtMergeListFile.Multiline = true;
-            txtMergeListFile.Name = "txtMergeListFile";
-            txtMergeListFile.ScrollBars = ScrollBars.Both;
-            txtMergeListFile.Size = new Size(283, 202);
-            txtMergeListFile.TabIndex = 7;
-            txtMergeListFile.WordWrap = false;
-            txtMergeListFile.DragDrop += txtListOfFilesToMerge_DragDrop;
-            txtMergeListFile.DragEnter += txtListOfFilesToMerge_DragEnter;
-            // 
-            // label10
-            // 
-            label10.AutoSize = true;
-            label10.Location = new Point(573, 24);
-            label10.Name = "label10";
-            label10.Size = new Size(96, 15);
-            label10.TabIndex = 8;
-            label10.Text = "List file contents:";
+            chkCopyStream.AutoSize = true;
+            chkCopyStream.Checked = true;
+            chkCopyStream.CheckState = CheckState.Checked;
+            chkCopyStream.Location = new Point(350, 22);
+            chkCopyStream.Name = "chkCopyStream";
+            chkCopyStream.Size = new Size(93, 19);
+            chkCopyStream.TabIndex = 11;
+            chkCopyStream.Text = "Copy stream";
+            chkCopyStream.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
@@ -748,5 +762,6 @@
         private TextBox txtListOfFilesToRemux;
         private Label label10;
         private TextBox txtMergeListFile;
+        private CheckBox chkCopyStream;
     }
 }

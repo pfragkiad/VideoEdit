@@ -385,10 +385,17 @@ public partial class Form1 : Form
         if (!chkKeepExistingCommands.Checked)
             txtCommands.Clear();
 
+        bool copyStream = chkCopyStream.Checked;
+
+        string sCopy = copyStream ? "-c copy" : "";
+
+
         foreach (string file in files)
         {
+            string extension = Path.GetExtension(file);
+            string postfix = extension ==".mp4" ? "_remux" : "";
             // ffmpeg -i "29 2021-01-20 13-32-13.mkv" -c copy "29 2021-01-20 13-32-13.mp4"
-            string command = $"ffmpeg -i \"{file}\" -c copy \"{Path.GetFileNameWithoutExtension(file)}.mp4\"";
+            string command = $"ffmpeg -i \"{file}\" {sCopy} \"{Path.GetFileNameWithoutExtension(file)}{postfix}.mp4\"";
             txtCommands.AppendText(command + "\r\n");
         }
     }
