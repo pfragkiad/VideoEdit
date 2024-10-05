@@ -357,6 +357,9 @@ public partial class Form1 : Form
         string echoCommand = string.Join(" & ", files.Select(f => $"echo file '{f}'"));
         echoCommand = $"({echoCommand}) >list.txt";
 
+        //file '2020-11-04 (2).mp4'
+        txtMergeListFile.Text = string.Join("\r\n", files.Select(f => $"file '{f}'"));
+
         txtCommands.AppendText(echoCommand + "\r\n");
 
         //merge command

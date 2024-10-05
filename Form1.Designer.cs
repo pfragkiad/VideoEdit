@@ -79,6 +79,8 @@
             label9 = new Label();
             txtListOfFilesToRemux = new TextBox();
             chkKeepExistingCommands = new CheckBox();
+            txtMergeListFile = new TextBox();
+            label10 = new Label();
             groupBox2.SuspendLayout();
             tabControl1.SuspendLayout();
             tabPreprocess.SuspendLayout();
@@ -543,7 +545,9 @@
             // 
             tabMerge.Controls.Add(label7);
             tabMerge.Controls.Add(txtMergedOutputFile);
+            tabMerge.Controls.Add(label10);
             tabMerge.Controls.Add(label5);
+            tabMerge.Controls.Add(txtMergeListFile);
             tabMerge.Controls.Add(txtListOfFilesToMerge);
             tabMerge.Location = new Point(4, 24);
             tabMerge.Name = "tabMerge";
@@ -635,6 +639,28 @@
             chkKeepExistingCommands.Text = "Keep existing commands";
             chkKeepExistingCommands.UseVisualStyleBackColor = true;
             // 
+            // txtMergeListFile
+            // 
+            txtMergeListFile.AllowDrop = true;
+            txtMergeListFile.Location = new Point(573, 53);
+            txtMergeListFile.Multiline = true;
+            txtMergeListFile.Name = "txtMergeListFile";
+            txtMergeListFile.ScrollBars = ScrollBars.Both;
+            txtMergeListFile.Size = new Size(283, 202);
+            txtMergeListFile.TabIndex = 7;
+            txtMergeListFile.WordWrap = false;
+            txtMergeListFile.DragDrop += txtListOfFilesToMerge_DragDrop;
+            txtMergeListFile.DragEnter += txtListOfFilesToMerge_DragEnter;
+            // 
+            // label10
+            // 
+            label10.AutoSize = true;
+            label10.Location = new Point(573, 24);
+            label10.Name = "label10";
+            label10.Size = new Size(96, 15);
+            label10.TabIndex = 8;
+            label10.Text = "List file contents:";
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -720,5 +746,7 @@
         private TabPage tabRemux;
         private Label label9;
         private TextBox txtListOfFilesToRemux;
+        private Label label10;
+        private TextBox txtMergeListFile;
     }
 }
