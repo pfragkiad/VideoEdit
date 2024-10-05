@@ -309,10 +309,9 @@ public partial class Form1 : Form
         //del v1_part1.mp4 & del v1_part2.mp4
 
         string postfix = txtPostfix.Text;
+        Rectangle? cropSection = GetCropSection();
         if (timeSections.Count == 1)
         {
-            //cropped section only works with one section
-            Rectangle? cropSection = GetCropSection();
             txtCommands.AppendText($"{timeSections[0].ToFfmpegCommand(inputFile, null, postfix, cropSection)}\r\n");
             return;
         }
@@ -321,7 +320,7 @@ public partial class Form1 : Form
         for (int i = 0; i < timeSections.Count; i++)
         {
             var section = timeSections[i];
-            txtCommands.AppendText($"{section.ToFfmpegCommand(inputFile, i + 1, postfix, null)}\r\n");
+            txtCommands.AppendText($"{section.ToFfmpegCommand(inputFile, i + 1, postfix, cropSection)}\r\n");
         }
 
         string extension = Path.GetExtension(inputFile);
