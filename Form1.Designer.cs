@@ -304,7 +304,7 @@
             txtCommands.Multiline = true;
             txtCommands.Name = "txtCommands";
             txtCommands.ScrollBars = ScrollBars.Both;
-            txtCommands.Size = new Size(1067, 243);
+            txtCommands.Size = new Size(984, 243);
             txtCommands.TabIndex = 7;
             txtCommands.WordWrap = false;
             // 
@@ -319,7 +319,8 @@
             // 
             // btnUpdateCommands
             // 
-            btnUpdateCommands.Location = new Point(737, 377);
+            btnUpdateCommands.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnUpdateCommands.Location = new Point(654, 377);
             btnUpdateCommands.Name = "btnUpdateCommands";
             btnUpdateCommands.Size = new Size(173, 34);
             btnUpdateCommands.TabIndex = 8;
@@ -430,7 +431,7 @@
             tabControl1.Location = new Point(25, 67);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new Size(1071, 304);
+            tabControl1.Size = new Size(988, 304);
             tabControl1.TabIndex = 11;
             // 
             // tabPreprocess
@@ -439,7 +440,7 @@
             tabPreprocess.Location = new Point(4, 24);
             tabPreprocess.Name = "tabPreprocess";
             tabPreprocess.Padding = new Padding(3);
-            tabPreprocess.Size = new Size(1063, 276);
+            tabPreprocess.Size = new Size(980, 276);
             tabPreprocess.TabIndex = 0;
             tabPreprocess.Text = "Preprocess";
             tabPreprocess.UseVisualStyleBackColor = true;
@@ -587,8 +588,9 @@
             // 
             // chkKeepExistingCommands
             // 
+            chkKeepExistingCommands.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             chkKeepExistingCommands.AutoSize = true;
-            chkKeepExistingCommands.Location = new Point(925, 386);
+            chkKeepExistingCommands.Location = new Point(842, 386);
             chkKeepExistingCommands.Name = "chkKeepExistingCommands";
             chkKeepExistingCommands.Size = new Size(159, 19);
             chkKeepExistingCommands.TabIndex = 9;
@@ -599,7 +601,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1135, 678);
+            ClientSize = new Size(1052, 678);
             Controls.Add(chkKeepExistingCommands);
             Controls.Add(btnUpdateCommands);
             Controls.Add(tabControl1);
